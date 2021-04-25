@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CovidTracker</string>
+    <string name="date_text">date_text</string>
+    <string name="world_data">World Data</string>
+    <string name="state_data">State Data</string>
+    <string name="city_data">City Data</string>
+    <string name="covid">COVID</string>
+    <string name="tracker">Tracker</string>
+</resources>
