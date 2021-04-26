@@ -54,15 +54,15 @@
         android:id="@+id/covidtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="92dp"
-        android:textStyle="normal"
+        android:fontFamily="sans-serif"
         android:text="@string/covid"
         android:textAllCaps="false"
         android:textColor="#A6A8B4"
         android:textSize="36sp"
-        android:fontFamily="sans-serif"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,29 +70,29 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/trackertext"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/tracker"
+        android:textAllCaps="false"
         android:textSize="24sp"
         android:textStyle="bold"
         app:backgroundTint="#4D4F57"
-        android:fontFamily="sans-serif-medium"
         app:layout_constraintStart_toEndOf="@+id/covidtext"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/trackertext"
-        android:textAllCaps="false"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/datetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginLeft="38dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="36dp"
         android:text="@string/date_text"
+        android:textAllCaps="false"
         android:textColor="#8C8D9A"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/covidtext"
-        android:textAllCaps="false"/>
+        app:layout_constraintTop_toBottomOf="@+id/covidtext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
