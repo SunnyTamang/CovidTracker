@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 //        String day          = (String) DateFormat.format("dd",   date); // 20
 //        String monthString  = (String) DateFormat.format("MMMM",  date); // Jun
 //        TextView textView=findViewById(R.id.datetext);
+//        textView.setText(dayOfTheWeek);
 //        textView.setText(dayOfTheWeek + ", " + day + "\n" + monthString);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
