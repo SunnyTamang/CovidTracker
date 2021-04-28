@@ -9,4 +9,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="_1">1</string>
+    <string name="total_recovered">TOTAL RECOVERED</string>
+    <string name="total_deaths">TOTAL DEATHS</string>
+    <string name="total_active">TOTAL ACTIVE</string>
 </resources>
