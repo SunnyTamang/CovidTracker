@@ -13,7 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -26,13 +29,17 @@ public class FirstFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_first,container,false);
 
 
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
         world_btn = view.findViewById(R.id.worldbutton);
+        TextView textView=view.findViewById(R.id.datetext);
+
+
+        // ClickListner to communicate one fragment to second fragment
         world_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +59,12 @@ public class FirstFrag extends Fragment {
 //        TextView textView=view.findViewById(R.id.datetext);
 //        textView.setText(dayOfTheWeek + ", " + day + "\n" + monthString);
 
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
 
-
+        textView.setText(formattedDate);
         return view;
     }
 
