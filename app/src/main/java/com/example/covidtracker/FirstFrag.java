@@ -1,5 +1,5 @@
 package com.example.covidtracker;
-
+import android.text.format.DateFormat;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.DateFormat;
+//import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,19 +52,19 @@ public class FirstFrag extends Fragment {
 
 
 
-//                Date date = new Date();
-//        String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-//        String day          = (String) DateFormat.format("dd",   date); // 20
-//        String monthString  = (String) DateFormat.format("MMMM",  date); // Jun
-//        TextView textView=view.findViewById(R.id.datetext);
-//        textView.setText(dayOfTheWeek + ", " + day + "\n" + monthString);
+        Date date = new Date();
+        String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
+        String day          = (String) DateFormat.format("dd",   date); // 20
+        String monthString  = (String) DateFormat.format("MMMM",  date); // Jun
+        //textView.setText(dayOfTheWeek);
+        textView.setText(dayOfTheWeek + ", " + day + "\n" + monthString);
 
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-
-        textView.setText(formattedDate);
+//        Date c = Calendar.getInstance().getTime();
+//        System.out.println("Current time => " + c);
+//        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+//        String formattedDate = df.format(c);
+//
+//        textView.setText(formattedDate);
         return view;
     }
 
