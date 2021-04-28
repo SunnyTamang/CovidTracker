@@ -35,19 +35,19 @@ public class FirstFrag extends Fragment {
 
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         navController = Objects.requireNonNull(navHostFragment).getNavController();
-        world_btn = view.findViewById(R.id.worldbutton);
-        TextView textView=view.findViewById(R.id.datetext);
-
-
-        // ClickListner to communicate one fragment to second fragment
-        world_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                navController.navigate(R.id.first_fragment_to_second_fragment,bundle);
-
-            }
-        });
+//        world_btn = view.findViewById(R.id.worldbutton);
+//        TextView textView=view.findViewById(R.id.datetext);
+//
+//
+//        // ClickListner to communicate one fragment to second fragment
+//        world_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle = new Bundle();
+//                navController.navigate(R.id.first_fragment_to_second_fragment,bundle);
+//
+//            }
+//        });
 
 
 
@@ -64,7 +64,7 @@ public class FirstFrag extends Fragment {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
-        textView.setText(formattedDate);
+        //textView.setText(formattedDate);
         return view;
     }
 
