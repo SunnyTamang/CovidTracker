@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FirstFrag">
+
+    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/worldbutton"
+        android:layout_width="124dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="166dp"
+        android:background="@drawable/buttonstyles"
+        android:text="@string/world_data"
+        android:textAllCaps="false"
+        android:textIsSelectable="false"
+        app:backgroundTint="#2E303C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/statebutton"
+        android:layout_width="124dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginLeft="135dp"
+        android:layout_marginBottom="166dp"
+        android:background="@drawable/buttonstyles"
+        android:text="@string/state_data"
+        app:backgroundTint="#2E303C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/citybutton"
+        android:layout_width="124dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="265dp"
+        android:layout_marginLeft="265dp"
+        android:layout_marginBottom="166dp"
+        android:background="@drawable/buttonstyles"
+        android:text="@string/city_data"
+        app:backgroundTint="#2E303C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"/>
+
+    <TextView
+        android:id="@+id/covidtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="92dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/covid"
+        android:textAllCaps="false"
+        android:textColor="#A6A8B4"
+        android:textSize="36sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/trackertext"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/tracker"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="#4D4F57"
+        app:layout_constraintStart_toEndOf="@+id/covidtext"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/datetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/date_text"
+        android:textAllCaps="false"
+        android:textColor="#8C8D9A"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/covidtext" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
