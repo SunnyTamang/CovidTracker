@@ -6,13 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SecondFrag">
 
+    <!-- TODO: Update blank fragment layout -->
 
     <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="375dp"
+        android:layout_width="405dp"
+        android:layout_height="374dp"
         android:layout_below="@+id/datetext"
         android:columnCount="2"
         android:rowCount="2"
+
         tools:ignore="MissingConstraints">
 
         <androidx.cardview.widget.CardView
