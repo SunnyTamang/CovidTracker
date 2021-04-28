@@ -7,7 +7,17 @@
     android:background="#3C3D4A"
     tools:context=".MainActivity" >
 
-    <Button
+    <fragment
+        android:id="@+id/fragment_container"
+        android:name="com.example.covidtracker.FirstFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_first"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+
+    <!--<Button
         android:id="@+id/worldbutton"
         android:layout_width="124dp"
         android:layout_height="129dp"
@@ -16,11 +26,11 @@
         android:layout_marginBottom="166dp"
         android:background="@drawable/buttonstyles"
         android:text="@string/world_data"
+        android:textAllCaps="false"
+        android:textIsSelectable="false"
         app:backgroundTint="#2E303C"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/world_data"
-        android:textAllCaps="false"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/statebutton"
@@ -93,6 +103,8 @@
         android:textColor="#8C8D9A"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/covidtext" />
+        app:layout_constraintTop_toBottomOf="@+id/covidtext" />-->
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
