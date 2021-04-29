@@ -13,4 +13,10 @@
     <string name="total_deaths">Deaths</string>
     <string name="total_active">Active</string>
     <string name="total_confirmed">Confirmed</string>
+    <string-array name="dummy_date">
+        <item>Home</item>
+        <item>Work</item>
+        <item>Other</item>
+        <item>Custom</item>
+    </string-array>
 </resources>
