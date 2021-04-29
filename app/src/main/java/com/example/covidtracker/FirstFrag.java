@@ -9,7 +9,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -24,13 +26,12 @@ public class FirstFrag extends Fragment {
 
     NavController navController;
     Button world_btn;
-
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_first,container,false);
+        view = inflater.inflate(R.layout.fragment_splash_test,container,false);
 
 
         NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -64,7 +65,17 @@ public class FirstFrag extends Fragment {
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
         String formattedDate = df.format(c);
 
+
+
         //textView.setText(formattedDate);
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.country_spinner);
+
+        ArrayAdapter<CharSequence> myAdapter = ArrayAdapter.createFromResource(this.getContext(),
+                R.array.dummy_date,
+                android.R.layout.simple_list_item_1);
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(myAdapter);
         return view;
     }
 

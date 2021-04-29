@@ -9,7 +9,7 @@
         android:id="@+id/webinar_home_page"
         android:name="com.example.covidtracker.FirstFrag"
         android:label="Covid Tracker Page"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_splash_test">
 
         <action android:id="@+id/first_fragment_to_second_fragment"
             app:destination="@+id/second_fragment"/>
