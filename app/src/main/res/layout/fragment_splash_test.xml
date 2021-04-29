@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212B46">
+    android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="174dp"
-        android:layout_height="135dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/Asset2"
-        tools:layout_editor_absoluteX="117dp"
-        tools:layout_editor_absoluteY="224dp" />
+    <FrameLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#212B46">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="258dp"
-        android:layout_height="51dp"
-        android:fontFamily="@font/titillium_web_extralight"
-        android:gravity="center"
-        android:text="COVID Tracker"
-        android:textAllCaps="false"
-        android:textColor="#EC5568"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="388dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="137dp"
+            android:layout_height="141dp"
+            android:layout_gravity="bottom|left"
+            android:scaleType="fitStart"
+            tools:src="@drawable/corona_logo" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="102dp"
+            android:layout_height="87dp"
+            android:layout_gravity="top|right"
+            android:scaleType="fitStart"
+            tools:src="@drawable/corona_logo" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="65dp"
+            android:layout_height="63dp"
+            android:layout_gravity="bottom|right"
+            android:scaleType="fitStart"
+            tools:src="@drawable/corona_logo" />
+
+    </FrameLayout>
+
+</RelativeLayout>
