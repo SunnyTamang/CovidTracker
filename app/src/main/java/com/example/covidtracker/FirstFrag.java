@@ -26,7 +26,6 @@ public class FirstFrag extends Fragment {
 
     NavController navController;
     Button world_btn;
-
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
