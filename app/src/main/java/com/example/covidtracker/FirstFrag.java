@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,12 +22,20 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class FirstFrag extends Fragment {
 
     NavController navController;
     Button world_btn;
     View view;
+    TextView confirm;
+    int jdata;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,6 +85,40 @@ public class FirstFrag extends Fragment {
                 android.R.layout.simple_list_item_1);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
+
+        confirm = view.findViewById(R.id.confirmed_count);
+        // Retrofit Builder
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://disease.sh/v3/covid-19/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // instance for interface call
+        APICall apiCall = retrofit.create(APICall.class);
+        Call<DataModel> call = apiCall.getData();
+
+        call.enqueue(new Callback<DataModel>() {
+            @Override
+            public void onResponse(Call<DataModel> call, Response<DataModel> response) {
+                //Checking for respose
+                if (response.code()!=200){
+                    confirm.setText(response.code());
+                    return;
+                }
+                //Get the data
+
+                jdata = response.body().getCases();
+                confirm.setText(String.valueOf(jdata));
+
+            }
+
+            @Override
+            public void onFailure(Call<DataModel> call, Throwable t) {
+                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        //confirm.setText(call.toString());
+
         return view;
     }
 
