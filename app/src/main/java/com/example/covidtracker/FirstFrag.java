@@ -1,10 +1,14 @@
 package com.example.covidtracker;
 
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,12 +20,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.covidtracker.Adapter.WorldListAdapter;
+import com.example.covidtracker.Madal.WorldListModal;
+
 import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -44,12 +53,34 @@ public class FirstFrag extends Fragment {
     private TextView active_count;
     private TextView deceased_count;
     private TextView recovered_count;
+    RecyclerView world_list_rv;
+    List<WorldListModal> worldListModalList = new ArrayList<>();
+    Activity context;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        WorldListModal modalCurrentItem = new WorldListModal();
+        modalCurrentItem.setCountryName("India");
+        modalCurrentItem.setNewAffected("34234");
+        modalCurrentItem.setTotalAffected("34234");
+        modalCurrentItem.setTotalDeath("52");
+        modalCurrentItem.setTotalRecovered("56516");
+        for (int i = 0; i<10;i++){
+            worldListModalList.add(modalCurrentItem);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_splash_test,container,false);
+        world_list_rv = view.findViewById(R.id.world_list_rv);
+        WorldListAdapter adapter = new WorldListAdapter(worldListModalList,context);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        world_list_rv.setLayoutManager(manager);
+        world_list_rv.setAdapter(adapter);
 
 
 //        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
