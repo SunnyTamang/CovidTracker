@@ -127,11 +127,11 @@
                     android:id="@+id/confirmed_cases"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="8dp"
-
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/lato"
                     android:text="Confirmed"
+                    android:textColor="#6D767E"
 
                     android:textSize="15dp"
                     android:textStyle="normal" />
@@ -178,7 +178,7 @@
                     android:fontFamily="@font/lato"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="8dp"
-
+                    android:textColor="#6D767E"
                     android:text="Active"
 
                     android:textSize="15dp"
@@ -228,7 +228,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="8dp"
                     android:text="Recovered"
-
+                    android:textColor="#6D767E"
                     android:textSize="15dp"
                     android:textStyle="normal" />
                 <TextView
@@ -276,7 +276,7 @@
                     android:layout_marginLeft="8dp"
                     android:text="Deceased"
 
-
+                 android:textColor="#6D767E"
                     android:textSize="15dp"
                     android:textStyle="normal"
                      />
