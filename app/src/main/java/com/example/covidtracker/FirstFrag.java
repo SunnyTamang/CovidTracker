@@ -52,8 +52,8 @@ public class FirstFrag extends Fragment {
         view = inflater.inflate(R.layout.fragment_splash_test,container,false);
 
 
-        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        navController = Objects.requireNonNull(navHostFragment).getNavController();
+//        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+//        navController = Objects.requireNonNull(navHostFragment).getNavController();
 //        world_btn = view.findViewById(R.id.worldbutton);
 //        TextView textView=view.findViewById(R.id.datetext);
 //

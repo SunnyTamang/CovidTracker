@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         if (savedInstanceState == null){
             chipNavigationBar.setItemSelected(R.id.home,true);
             manager = getSupportFragmentManager();
-            HomeFragment firstFrag = new HomeFragment();
+            FirstFrag firstFrag = new FirstFrag();
             manager.beginTransaction().replace(R.id.fragment_container1,firstFrag).commit();
 
         }
@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (id){
                     case R.id.home:
-                        fragment = new HomeFragment();
+                        fragment = new FirstFrag();
                         break;
                     case R.id.support:
                         fragment = new SupportFragment();
