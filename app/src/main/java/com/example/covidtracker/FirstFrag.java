@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,7 +38,13 @@ public class FirstFrag extends Fragment {
     Button world_btn;
     View view;
     TextView confirm;
-    int jdata;
+    int jsonData;
+
+    private TextView confirmed_count;
+    private TextView active_count;
+    private TextView deceased_count;
+    private TextView recovered_count;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,38 +95,47 @@ public class FirstFrag extends Fragment {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(myAdapter);
 
-        confirm = view.findViewById(R.id.confirmed_count);
-        // Retrofit Builder
+
+        //
+        confirmed_count = view.findViewById(R.id.confirmed_count);
+        active_count = view.findViewById(R.id.active_count);
+        deceased_count = view.findViewById(R.id.deceased_count);
+        recovered_count = view.findViewById(R.id.recovered_count);
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://disease.sh/v3/covid-19/")
+                .baseUrl("https://disease.sh/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-        // instance for interface call
-        APICall apiCall = retrofit.create(APICall.class);
+        ApiCall apiCall = retrofit.create(ApiCall.class);
         Call<DataModel> call = apiCall.getData();
 
         call.enqueue(new Callback<DataModel>() {
             @Override
             public void onResponse(Call<DataModel> call, Response<DataModel> response) {
-                //Checking for respose
-                if (response.code()!=200){
-                    confirm.setText(response.code());
+                if (!response.isSuccessful()) {
+                    confirmed_count.setText(response.code());
                     return;
                 }
-                //Get the data
 
-                jdata = response.body().getCases();
-                confirm.setText(String.valueOf(jdata));
+                int confirmed = response.body().getCases();
+                int active = response.body().getActive();
+                int deceased = response.body().getDeaths();
+                int recovered = response.body().getRecovered();
+
+                confirmed_count.append(String.valueOf(confirmed));
+                active_count.append(String.valueOf(active));
+                deceased_count.append(String.valueOf(deceased));
+                recovered_count.append(String.valueOf(recovered));
 
             }
+
 
             @Override
             public void onFailure(Call<DataModel> call, Throwable t) {
-                //Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                confirmed_count.setText(t.getMessage());
             }
         });
-        //confirm.setText(call.toString());
+
 
         return view;
     }
