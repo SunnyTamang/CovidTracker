@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidtracker.Adapter.WorldListAdapter;
+import com.example.covidtracker.Madal.WorldCardsModel;
 import com.example.covidtracker.Madal.WorldListModal;
 
 import org.w3c.dom.Text;
@@ -53,6 +54,10 @@ public class FirstFrag extends Fragment {
     private TextView active_count;
     private TextView deceased_count;
     private TextView recovered_count;
+    private List listOfData = new ArrayList<>();
+    private int sum=0;
+    private ApiCall apiCall;
+    WorldListModal modalCurrentItem = new WorldListModal();
     RecyclerView world_list_rv;
     List<WorldListModal> worldListModalList = new ArrayList<>();
     Activity context;
@@ -60,7 +65,7 @@ public class FirstFrag extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WorldListModal modalCurrentItem = new WorldListModal();
+
         modalCurrentItem.setCountryName("India");
         modalCurrentItem.setNewAffected("34234");
         modalCurrentItem.setTotalAffected("34234");
@@ -137,38 +142,113 @@ public class FirstFrag extends Fragment {
                 .baseUrl("https://disease.sh/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiCall apiCall = retrofit.create(ApiCall.class);
-        Call<DataModel> call = apiCall.getData();
+        apiCall = retrofit.create(ApiCall.class);
+        //Call<DataModel> call = apiCall.getData();
+        //--------------------------------------This is added from the world API------------------------------------------//
+        getWorldCardsData();
 
-        call.enqueue(new Callback<DataModel>() {
+        getWorldTableData();
+
+
+        return view;
+    }
+    private void getWorldCardsData(){
+        Call<WorldCardsModel> call = apiCall.getWorldCardsData();
+
+
+        call.enqueue(new Callback<WorldCardsModel>() {
             @Override
-            public void onResponse(Call<DataModel> call, Response<DataModel> response) {
+            public void onResponse(Call<WorldCardsModel> call, Response<WorldCardsModel> response) {
                 if (!response.isSuccessful()) {
                     confirmed_count.setText(response.code());
                     return;
                 }
 
-                int confirmed = response.body().getCases();
+//                int confirmed = response.body().getCases();
+//                int active = response.body().getActive();
+//                int deceased = response.body().getDeaths();
+//                int recovered = response.body().getRecovered();
+//
+//                confirmed_count.append(String.valueOf(confirmed));
+//                active_count.append(String.valueOf(active));
+//                deceased_count.append(String.valueOf(deceased));
+//                recovered_count.append(String.valueOf(recovered));
+
+                //--------------------------------------This is added from the world API------------------------------------------//
+
+                int worldConfirmedCard = response.body().getCases();
                 int active = response.body().getActive();
                 int deceased = response.body().getDeaths();
                 int recovered = response.body().getRecovered();
 
-                confirmed_count.append(String.valueOf(confirmed));
+                confirmed_count.append(String.valueOf(worldConfirmedCard));
                 active_count.append(String.valueOf(active));
                 deceased_count.append(String.valueOf(deceased));
                 recovered_count.append(String.valueOf(recovered));
+            }
+
+
+            @Override
+            public void onFailure(Call<WorldCardsModel> call, Throwable t) {
+                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getWorldTableData(){
+        Call<List<WorldListModal>> call = apiCall.getWorldTableData();
+
+
+        call.enqueue(new Callback<List<WorldListModal>>() {
+            @Override
+            public void onResponse(Call<List<WorldListModal>> call, Response<List<WorldListModal>> response) {
+                if (!response.isSuccessful()) {
+                    confirmed_count.setText(response.code());
+                    return;
+                }
+
+//                int confirmed = response.body().getCases();
+//                int active = response.body().getActive();
+//                int deceased = response.body().getDeaths();
+//                int recovered = response.body().getRecovered();
+//
+//                confirmed_count.append(String.valueOf(confirmed));
+//                active_count.append(String.valueOf(active));
+//                deceased_count.append(String.valueOf(deceased));
+//                recovered_count.append(String.valueOf(recovered));
+
+                //--------------------------------------This is added from the world API------------------------------------------//
+                List<WorldListModal> posts = response.body();
+
+                for (WorldListModal post : posts){
+                    listOfData.add(post.getCountry());
+
+                    // content = post.
+                }
+//                for (int j=0;j<listOfData.size();j++){
+//                    //modalCurrentItem.setCountryName(listOfData.get(j).toString());
+//                    modalCurrentItem.setCountryName(listOfData.get);
+//                }
+//                modalCurrentItem.setCountryName(String.valueOf(listOfData.get(0)));
+//                modalCurrentItem.setNewAffected("34234");
+//                modalCurrentItem.setTotalAffected("34234");
+//                modalCurrentItem.setTotalDeath("52");
+//                modalCurrentItem.setTotalRecovered("56516");
+//                for (int i = 0; i<10;i++) {
+//                    worldListModalList.add(modalCurrentItem);
+//                }
+
+
+//
 
             }
 
 
             @Override
-            public void onFailure(Call<DataModel> call, Throwable t) {
+            public void onFailure(Call<List<WorldListModal>> call, Throwable t) {
                 confirmed_count.setText(t.getMessage());
             }
         });
-
-
-        return view;
     }
 
 

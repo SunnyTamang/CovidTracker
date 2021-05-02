@@ -6,7 +6,7 @@ public class DataModel {
     }
 
     private String country;
-    private int cases;
+    //private int cases;
     private int deaths;
     private int recovered;
     private int active;
@@ -23,7 +23,8 @@ public class DataModel {
         return active;
     }
 
-    public int getCases() {
-        return cases;
-    }
+//    public int getCases() {
+//
+//        return cases;
+//    }
 }
