@@ -73,7 +73,8 @@ public class FirstFrag extends Fragment {
         world_list_rv.setLayoutManager(manager);
 
 
-        fetchingRvData();
+       // fetchingRvData();
+
 
 
 
@@ -92,7 +93,34 @@ public class FirstFrag extends Fragment {
         //Call<DataModel> call = apiCall.getData();
         //--------------------------------------This is added from the world API------------------------------------------//
         getWorldCardsData();
+        fetchingRecViewData();
+
         return view;
+    }
+
+    private void fetchingRecViewData() {
+        Call<List<WorldDataList>> call = apiCall.getWorldTableData();
+
+
+        call.enqueue(new Callback<List<WorldDataList>>() {
+            @Override
+            public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
+                if (!response.isSuccessful()) {
+                    confirmed_count.setText(response.code());
+                    return;
+                }
+
+                List<WorldDataList> dataResponse = response.body();
+                worldListAdapter.setData(dataResponse);
+                world_list_rv.setAdapter(worldListAdapter);
+            }
+
+
+            @Override
+            public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
+                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void fetchingRvData() {
@@ -114,7 +142,7 @@ public class FirstFrag extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
-
+                    Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 

@@ -49,10 +49,10 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
 //        holder.bind(Name,T_Affected,Recovered,N_Affected,Death);
 
         holder.countryName.setText(worldListModalList.get(position).getCountry());
-        holder.totalAffected.setText(worldListModalList.get(position).getCases());
-        holder.totalRecovered.setText(worldListModalList.get(position).getRecovered());
-        holder.totalDeath.setText(worldListModalList.get(position).getDeaths());
-        holder.newAffected.setText(worldListModalList.get(position).getTodayCases());
+        holder.totalAffected.setText(String.valueOf(worldListModalList.get(position).getCases()));
+        holder.totalRecovered.setText(String.valueOf(worldListModalList.get(position).getRecovered()));
+        holder.totalDeath.setText(String.valueOf(worldListModalList.get(position).getDeaths()));
+        holder.newAffected.setText(String.valueOf(worldListModalList.get(position).getTodayCases()));
 
     }
 
