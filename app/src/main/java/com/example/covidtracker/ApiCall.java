@@ -8,14 +8,16 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface ApiCall {
 
     @GET("v3/covid-19/countries")
     Call<List<WorldDataList>> getWorldTableData();
 
+
     @GET("v3/covid-19/all")
-    Call<WorldCardsModel> getWorldCardsData();
+    Call<WorldCardsModel> getWorldCardsData(@Query("yesterday") boolean yesterday);
 
 
 

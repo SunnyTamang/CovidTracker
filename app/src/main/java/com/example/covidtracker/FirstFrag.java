@@ -150,7 +150,7 @@ public class FirstFrag extends Fragment {
     }
 
     private void getWorldCardsData(){
-        Call<WorldCardsModel> call = apiCall.getWorldCardsData();
+        Call<WorldCardsModel> call = apiCall.getWorldCardsData(false);
 
 
         call.enqueue(new Callback<WorldCardsModel>() {
