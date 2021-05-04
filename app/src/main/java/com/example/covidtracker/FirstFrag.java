@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,18 +21,16 @@ import android.widget.Toast;
 
 import com.example.covidtracker.Adapter.WorldListAdapter;
 import com.example.covidtracker.Madal.WorldCardsModel;
+import com.example.covidtracker.Madal.WorldDataList;
 import com.example.covidtracker.Madal.WorldListModal;
+import com.example.covidtracker.Utils.ApiClients;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,32 +45,20 @@ public class FirstFrag extends Fragment {
     Button world_btn;
     View view;
     TextView confirm;
-    int jsonData;
 
     private TextView confirmed_count;
     private TextView active_count;
     private TextView deceased_count;
     private TextView recovered_count;
-    private List listOfData = new ArrayList<>();
     private int sum=0;
     private ApiCall apiCall;
-    WorldListModal modalCurrentItem = new WorldListModal();
     RecyclerView world_list_rv;
-    List<WorldListModal> worldListModalList = new ArrayList<>();
     Activity context;
+    WorldListAdapter worldListAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        modalCurrentItem.setCountryName("India");
-        modalCurrentItem.setNewAffected("34234");
-        modalCurrentItem.setTotalAffected("34234");
-        modalCurrentItem.setTotalDeath("52");
-        modalCurrentItem.setTotalRecovered("56516");
-        for (int i = 0; i<10;i++){
-            worldListModalList.add(modalCurrentItem);
-        }
     }
 
     @Override
@@ -82,54 +67,15 @@ public class FirstFrag extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_splash_test,container,false);
         world_list_rv = view.findViewById(R.id.world_list_rv);
-        WorldListAdapter adapter = new WorldListAdapter(worldListModalList,context);
+
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        worldListAdapter = new WorldListAdapter();
         world_list_rv.setLayoutManager(manager);
-        world_list_rv.setAdapter(adapter);
 
 
-//        NavHostFragment navHostFragment = (NavHostFragment) requireActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-//        navController = Objects.requireNonNull(navHostFragment).getNavController();
-//        world_btn = view.findViewById(R.id.worldbutton);
-//        TextView textView=view.findViewById(R.id.datetext);
-//
-//
-//        // ClickListner to communicate one fragment to second fragment
-//        world_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Bundle bundle = new Bundle();
-//                navController.navigate(R.id.first_fragment_to_second_fragment,bundle);
-//
-//            }
-//        });
+        fetchingRvData();
 
 
-
-
-//                Date date = new Date();
-//        String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-//        String day          = (String) DateFormat.format("dd",   date); // 20
-//        String monthString  = (String) DateFormat.format("MMMM",  date); // Jun
-//        TextView textView=view.findViewById(R.id.datetext);
-//        textView.setText(dayOfTheWeek + ", " + day + "\n" + monthString);
-
-        Date c = Calendar.getInstance().getTime();
-        System.out.println("Current time => " + c);
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        String formattedDate = df.format(c);
-
-
-
-        //textView.setText(formattedDate);
-
-        Spinner spinner = (Spinner) view.findViewById(R.id.country_spinner);
-
-        ArrayAdapter<CharSequence> myAdapter = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.dummy_date,
-                android.R.layout.simple_list_item_1);
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(myAdapter);
 
 
         //
@@ -146,12 +92,35 @@ public class FirstFrag extends Fragment {
         //Call<DataModel> call = apiCall.getData();
         //--------------------------------------This is added from the world API------------------------------------------//
         getWorldCardsData();
-
-        getWorldTableData();
-
-
         return view;
     }
+
+    private void fetchingRvData() {
+     //   ApiCall apiCall = ApiClients.getRetrofit().create(ApiCall.class);
+
+
+            Call<List<WorldDataList>> dataListCall = ApiClients.getUserService().getWorldTableData();
+            Log.e("URl","url"+ApiClients.getUserService().getWorldTableData());
+            dataListCall.enqueue(new Callback<List<WorldDataList>>() {
+                @Override
+                public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
+                    Log.d("Data","message"+response.body());
+                    if (response.isSuccessful()){
+                        List<WorldDataList> dataResponse = response.body();
+                        worldListAdapter.setData(dataResponse);
+                        world_list_rv.setAdapter(worldListAdapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
+
+                }
+            });
+
+
+    }
+
     private void getWorldCardsData(){
         Call<WorldCardsModel> call = apiCall.getWorldCardsData();
 
@@ -195,61 +164,7 @@ public class FirstFrag extends Fragment {
         });
     }
 
-    private void getWorldTableData(){
-        Call<List<WorldListModal>> call = apiCall.getWorldTableData();
 
-
-        call.enqueue(new Callback<List<WorldListModal>>() {
-            @Override
-            public void onResponse(Call<List<WorldListModal>> call, Response<List<WorldListModal>> response) {
-                if (!response.isSuccessful()) {
-                    confirmed_count.setText(response.code());
-                    return;
-                }
-
-//                int confirmed = response.body().getCases();
-//                int active = response.body().getActive();
-//                int deceased = response.body().getDeaths();
-//                int recovered = response.body().getRecovered();
-//
-//                confirmed_count.append(String.valueOf(confirmed));
-//                active_count.append(String.valueOf(active));
-//                deceased_count.append(String.valueOf(deceased));
-//                recovered_count.append(String.valueOf(recovered));
-
-                //--------------------------------------This is added from the world API------------------------------------------//
-                List<WorldListModal> posts = response.body();
-
-                for (WorldListModal post : posts){
-                    listOfData.add(post.getCountry());
-
-                    // content = post.
-                }
-//                for (int j=0;j<listOfData.size();j++){
-//                    //modalCurrentItem.setCountryName(listOfData.get(j).toString());
-//                    modalCurrentItem.setCountryName(listOfData.get);
-//                }
-//                modalCurrentItem.setCountryName(String.valueOf(listOfData.get(0)));
-//                modalCurrentItem.setNewAffected("34234");
-//                modalCurrentItem.setTotalAffected("34234");
-//                modalCurrentItem.setTotalDeath("52");
-//                modalCurrentItem.setTotalRecovered("56516");
-//                for (int i = 0; i<10;i++) {
-//                    worldListModalList.add(modalCurrentItem);
-//                }
-
-
-//
-
-            }
-
-
-            @Override
-            public void onFailure(Call<List<WorldListModal>> call, Throwable t) {
-                confirmed_count.setText(t.getMessage());
-            }
-        });
-    }
 
 
 }
