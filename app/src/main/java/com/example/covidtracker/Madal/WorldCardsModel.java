@@ -1,70 +1,8 @@
 package com.example.covidtracker.Madal;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
-public class WorldListModal {
-    private String countryName;
-    private String totalAffected;
-    private String totalRecovered;
-    private String newAffected;
-    private String totalDeath;
-    public WorldListModal() {
-    }
-
-    public WorldListModal(String countryName, String totalAffected, String totalRecovered, String newAffected, String totalDeath) {
-        this.countryName = countryName;
-        this.totalAffected = totalAffected;
-        this.totalRecovered = totalRecovered;
-        this.newAffected = newAffected;
-        this.totalDeath = totalDeath;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public String getTotalAffected() {
-        return totalAffected;
-    }
-
-    public void setTotalAffected(String totalAffected) {
-        this.totalAffected = totalAffected;
-    }
-
-    public String getTotalRecovered() {
-        return totalRecovered;
-    }
-
-    public void setTotalRecovered(String totalRecovered) {
-        this.totalRecovered = totalRecovered;
-    }
-
-    public String getNewAffected() {
-        return newAffected;
-    }
-
-    public void setNewAffected(String newAffected) {
-        this.newAffected = newAffected;
-    }
-
-    public String getTotalDeath() {
-        return totalDeath;
-    }
-
-    public void setTotalDeath(String totalDeath) {
-        this.totalDeath = totalDeath;
-    }
-
-    // This is for from the countries API.............................
+public class WorldCardsModel {
 
     private long updated;
-    private CountryInfo countryInfo;
     private int cases;
     private int todayCases;
     private int deaths;
@@ -75,10 +13,9 @@ public class WorldListModal {
     private int critical;
     private double casesPerOneMillion;
     private double deathsPerOneMillion;
-    private int tests;
+    private long tests;
     private double testsPerOneMillion;
-    private int population;
-    private String continent;
+    private long population;
     private double oneCasePerPeople;
     private double oneDeathPerPeople;
     private double oneTestPerPeople;
@@ -86,12 +23,7 @@ public class WorldListModal {
     private double activePerOneMillion;
     private double recoveredPerOneMillion;
     private double criticalPerOneMillion;
-
-    public String getCountry() {
-        return country;
-    }
-
-    private String country;
+    private int affectedCountries;
 
     public long getUpdated() {
         return updated;
@@ -99,14 +31,6 @@ public class WorldListModal {
 
     public void setUpdated(long updated) {
         this.updated = updated;
-    }
-
-    public CountryInfo getCountryInfo() {
-        return countryInfo;
-    }
-
-    public void setCountryInfo(CountryInfo countryInfo) {
-        this.countryInfo = countryInfo;
     }
 
     public int getCases() {
@@ -185,15 +109,15 @@ public class WorldListModal {
         return deathsPerOneMillion;
     }
 
-    public void setDeathsPerOneMillion(int deathsPerOneMillion) {
+    public void setDeathsPerOneMillion(double deathsPerOneMillion) {
         this.deathsPerOneMillion = deathsPerOneMillion;
     }
 
-    public int getTests() {
+    public long getTests() {
         return tests;
     }
 
-    public void setTests(int tests) {
+    public void setTests(long tests) {
         this.tests = tests;
     }
 
@@ -201,24 +125,16 @@ public class WorldListModal {
         return testsPerOneMillion;
     }
 
-    public void setTestsPerOneMillion(int testsPerOneMillion) {
+    public void setTestsPerOneMillion(double testsPerOneMillion) {
         this.testsPerOneMillion = testsPerOneMillion;
     }
 
-    public int getPopulation() {
+    public long getPopulation() {
         return population;
     }
 
-    public void setPopulation(int population) {
+    public void setPopulation(long population) {
         this.population = population;
-    }
-
-    public String getContinent() {
-        return continent;
-    }
-
-    public void setContinent(String continent) {
-        this.continent = continent;
     }
 
     public double getOneCasePerPeople() {
@@ -277,62 +193,11 @@ public class WorldListModal {
         this.criticalPerOneMillion = criticalPerOneMillion;
     }
 
+    public int getAffectedCountries() {
+        return affectedCountries;
+    }
 
-    public static class CountryInfo {
-        private int _id;
-        private String iso2;
-        private String iso3;
-        private double lat;
-        @SerializedName("long")
-        private double longX;
-        private String flag;
-
-        public int get_id() {
-            return _id;
-        }
-
-        public void set_id(int _id) {
-            this._id = _id;
-        }
-
-        public String getIso2() {
-            return iso2;
-        }
-
-        public void setIso2(String iso2) {
-            this.iso2 = iso2;
-        }
-
-        public String getIso3() {
-            return iso3;
-        }
-
-        public void setIso3(String iso3) {
-            this.iso3 = iso3;
-        }
-
-        public double getLat() {
-            return lat;
-        }
-
-        public void setLat(int lat) {
-            this.lat = lat;
-        }
-
-        public double getLongX() {
-            return longX;
-        }
-
-        public void setLongX(int longX) {
-            this.longX = longX;
-        }
-
-        public String getFlag() {
-            return flag;
-        }
-
-        public void setFlag(String flag) {
-            this.flag = flag;
-        }
+    public void setAffectedCountries(int affectedCountries) {
+        this.affectedCountries = affectedCountries;
     }
 }
