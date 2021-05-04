@@ -49,10 +49,10 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
 //        holder.bind(Name,T_Affected,Recovered,N_Affected,Death);
 
         holder.countryName.setText(worldListModalList.get(position).getCountry());
-        holder.totalAffected.setText(String.valueOf(worldListModalList.get(position).getCases()));
+        holder.totalConfirmed.setText(String.valueOf(worldListModalList.get(position).getCases()));
+        holder.totalActive.setText(String.valueOf(worldListModalList.get(position).getActive()));
         holder.totalRecovered.setText(String.valueOf(worldListModalList.get(position).getRecovered()));
-        holder.totalDeath.setText(String.valueOf(worldListModalList.get(position).getDeaths()));
-        holder.newAffected.setText(String.valueOf(worldListModalList.get(position).getTodayCases()));
+        holder.totalDeceased.setText(String.valueOf(worldListModalList.get(position).getDeaths()));
 
     }
 
@@ -63,18 +63,18 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView countryName;
-        private TextView totalAffected;
+        private TextView totalConfirmed;
+        private TextView totalActive;
         private TextView totalRecovered;
-        private TextView newAffected;
-        private TextView totalDeath;
+        private TextView totalDeceased;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             countryName = itemView.findViewById(R.id.country_name);
-            totalAffected = itemView.findViewById(R.id.total_affected);
+            totalConfirmed = itemView.findViewById(R.id.total_confirmed);
+            totalActive = itemView.findViewById(R.id.total_active);
             totalRecovered = itemView.findViewById(R.id.total_recovered);
-            newAffected = itemView.findViewById(R.id.new_affected);
-            totalDeath = itemView.findViewById(R.id.total_deaths);
+            totalDeceased = itemView.findViewById(R.id.total_deceased);
         }
 
 //        private void bind(final String CountryName,final String TotalAffected,final String TotalRecovered,final String NewAffected,final String TotalDeath){

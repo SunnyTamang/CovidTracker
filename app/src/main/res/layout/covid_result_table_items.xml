@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
     app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="#f2f3f4"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -30,10 +31,10 @@
             android:letterSpacing="0.03"
             android:text="Australia"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/total_affected"
+            android:id="@+id/total_confirmed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,8 +43,20 @@
             android:gravity="center"
             android:letterSpacing="0.03"
             android:text="3697501"
-            android:textSize="11sp"
+            android:textSize="12sp"
             />
+
+        <TextView
+            android:id="@+id/total_active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.05"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:letterSpacing="0.03"
+            android:text="416531"
+            android:textColor="#2086FE"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/total_recovered"
@@ -53,24 +66,12 @@
             android:fontFamily="@font/roboto"
             android:gravity="center"
             android:letterSpacing="0.03"
-            android:text="416531"
-            android:textColor="#2086FE"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/new_affected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.05"
-            android:fontFamily="@font/roboto"
-            android:gravity="center"
-            android:letterSpacing="0.03"
             android:text="3215"
             android:textColor="#2DAA4A"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/total_deaths"
+            android:id="@+id/total_deceased"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.05"
@@ -79,7 +80,7 @@
             android:letterSpacing="0.03"
             android:text="56659"
             android:textColor="#6D767E"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
 
 
     </LinearLayout>
