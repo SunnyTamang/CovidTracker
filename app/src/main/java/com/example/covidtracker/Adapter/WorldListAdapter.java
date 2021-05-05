@@ -55,24 +55,24 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        String Name = worldListModalList.get(position).getCountryName();
-//        String T_Affected = worldListModalList.get(position).getTotalAffected();
-//        String Recovered = worldListModalList.get(position).getTotalRecovered();
-//        String N_Affected = worldListModalList.get(position).getNewAffected();
-//        String Death = worldListModalList.get(position).getTotalDeath();
+        String CountryName = worldListModalList.get(position).getCountry();
+        String TotalConfirmed = String.valueOf(worldListModalList.get(position).getCases());
+        String TotalActive = String.valueOf(worldListModalList.get(position).getActive());
+        String TotalRecovered =String.valueOf(worldListModalList.get(position).getRecovered());
+        String TotalDeceased = String.valueOf(worldListModalList.get(position).getDeaths());
 
-//        holder.bind(Name,T_Affected,Recovered,N_Affected,Death);
+        holder.bind(CountryName,TotalConfirmed,TotalActive,TotalRecovered,TotalDeceased);
 
-        holder.countryName.setText(worldListModalList.get(position).getCountry());
-        holder.totalConfirmed.setText(String.valueOf(worldListModalList.get(position).getCases()));
-        holder.totalActive.setText(String.valueOf(worldListModalList.get(position).getActive()));
-        holder.totalRecovered.setText(String.valueOf(worldListModalList.get(position).getRecovered()));
-        holder.totalDeceased.setText(String.valueOf(worldListModalList.get(position).getDeaths()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), StateWiseDataActivity.class);
+                intent.putExtra("Country Name",CountryName);
+                intent.putExtra("Total Confirmed",TotalConfirmed);
+                intent.putExtra("Total Active",TotalActive);
+                intent.putExtra("CountryRecovered",TotalRecovered);
+                intent.putExtra("Total Deceased",TotalDeceased);
                 view.getContext().startActivity(intent);
             }
         });
@@ -116,12 +116,12 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
             });
         }
 
-//        private void bind(final String CountryName,final String TotalAffected,final String TotalRecovered,final String NewAffected,final String TotalDeath){
-//            countryName.setText(CountryName);
-//            totalAffected.setText(TotalAffected);
-//            totalRecovered.setText(TotalRecovered);
-//            newAffected.setText(NewAffected);
-//            totalDeath.setText(TotalDeath);
-//        }
+        private void bind(final String CountryName,final String TotalConfirmed,final String TotalActive,final String TotalRecovered,final String TotalDeceased){
+            countryName.setText(CountryName);
+            totalConfirmed.setText(TotalConfirmed);
+            totalActive.setText(TotalActive);
+            totalRecovered.setText(TotalRecovered);
+            totalDeceased.setText(TotalDeceased);
+        }
     }
 }
