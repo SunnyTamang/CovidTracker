@@ -14,22 +14,30 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
-class State_Wise_Filter extends Fragment {
+public class State_Wise_Filter extends Fragment {
 
 
 //    public State_Wise_Filter() {
 //        // Required empty public constructor
 //    }
 
-    View view;
-   // private ArrayList<ExampleItem> mExampleItem;
+
+    // private ArrayList<ExampleItem> mExampleItem;
     private RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createExampleList();
-        buildRecyclerView();
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_state__wise__filter, container, false);
+
 
         EditText editText = view.findViewById(R.id.search_state);
         editText.addTextChangedListener(new TextWatcher() {
@@ -48,25 +56,13 @@ class State_Wise_Filter extends Fragment {
                 filter(s.toString());
             }
         });
-    }
-    private void filter(String text){
-       // ArrayList<ExampleItem>
-    }
-
-    private void createExampleList() {
+        
+        return view;
 
     }
 
-    private void buildRecyclerView() {
-
+    private void filter(String toString) {
     }
 
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_state__wise__filter, container, false);
-    }
 }
