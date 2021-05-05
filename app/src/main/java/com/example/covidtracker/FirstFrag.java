@@ -1,10 +1,13 @@
 package com.example.covidtracker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,6 +74,18 @@ public class FirstFrag extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         worldListAdapter = new WorldListAdapter();
         world_list_rv.setLayoutManager(manager);
+        worldListAdapter.setOnItemClickListener(new WorldListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Toast.makeText(view.getContext(), "wow", Toast.LENGTH_SHORT).show();
+                Fragment stateWiseFragment = new State_Wise_Filter();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container1,stateWiseFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
 
        // fetchingRvData();

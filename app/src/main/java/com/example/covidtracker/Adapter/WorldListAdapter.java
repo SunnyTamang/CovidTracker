@@ -24,6 +24,19 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
     List<WorldDataList> worldListModalList;
     Context context;
 
+    private OnItemClickListener mListener;
+
+    //Interface for RV onclick listener
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
+
+
     public void setData(List<WorldDataList> worldListModalList) {
         this.worldListModalList = worldListModalList;
         notifyDataSetChanged();
@@ -35,7 +48,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.covid_result_table_items,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mListener);
     }
 
     @Override
@@ -61,20 +74,33 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
         return worldListModalList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView countryName;
         private TextView totalConfirmed;
         private TextView totalActive;
         private TextView totalRecovered;
         private TextView totalDeceased;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             countryName = itemView.findViewById(R.id.country_name);
             totalConfirmed = itemView.findViewById(R.id.total_confirmed);
             totalActive = itemView.findViewById(R.id.total_active);
             totalRecovered = itemView.findViewById(R.id.total_recovered);
             totalDeceased = itemView.findViewById(R.id.total_deceased);
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+
+            });
         }
 
 //        private void bind(final String CountryName,final String TotalAffected,final String TotalRecovered,final String NewAffected,final String TotalDeath){
