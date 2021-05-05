@@ -49,7 +49,7 @@ public class StateDataModel {
         this.coordinates = coordinates;
     }
 
-    public Object getProvince() {
+    public String getProvince() {
         return province;
     }
 

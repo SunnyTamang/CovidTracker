@@ -138,31 +138,7 @@ public class FirstFrag extends Fragment {
         });
     }
 
-    private void fetchingRvData() {
-     //   ApiCall apiCall = ApiClients.getRetrofit().create(ApiCall.class);
 
-
-            Call<List<WorldDataList>> dataListCall = ApiClients.getUserService().getWorldTableData();
-            Log.e("URl","url"+ApiClients.getUserService().getWorldTableData());
-            dataListCall.enqueue(new Callback<List<WorldDataList>>() {
-                @Override
-                public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
-                    Log.d("Data","message"+response.body());
-                    if (response.isSuccessful()){
-                        List<WorldDataList> dataResponse = response.body();
-                        worldListAdapter.setData(dataResponse);
-                        world_list_rv.setAdapter(worldListAdapter);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
-                    Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-
-
-    }
 
     private void getWorldCardsData(){
         Call<WorldCardsModel> call = apiCall.getWorldCardsData(false);

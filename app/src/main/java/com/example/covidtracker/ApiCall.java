@@ -24,7 +24,7 @@ public interface ApiCall {
     Call<List<StateDataModel>> getWorldStateTableData();
 
     @GET("v3/covid-19/jhucsse")
-    Call<StateDataModel.Stats> getWorldStateCardsData();
+    Call<List<StateDataModel.Stats>> getWorldStateCardsData();
 
 
 
