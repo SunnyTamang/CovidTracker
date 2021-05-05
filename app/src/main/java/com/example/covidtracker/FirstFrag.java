@@ -1,10 +1,13 @@
 package com.example.covidtracker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,9 +74,22 @@ public class FirstFrag extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         worldListAdapter = new WorldListAdapter();
         world_list_rv.setLayoutManager(manager);
+//        worldListAdapter.setOnItemClickListener(new WorldListAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                //Toast.makeText(view.getContext(), "wow", Toast.LENGTH_SHORT).show();
+//                Fragment stateWiseFragment = new State_Wise_Filter();
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_container1,stateWiseFragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+//            }
+//        });
 
 
-        fetchingRvData();
+       // fetchingRvData();
+
 
 
 
@@ -92,7 +108,34 @@ public class FirstFrag extends Fragment {
         //Call<DataModel> call = apiCall.getData();
         //--------------------------------------This is added from the world API------------------------------------------//
         getWorldCardsData();
+        fetchingRecViewData();
+
         return view;
+    }
+
+    private void fetchingRecViewData() {
+        Call<List<WorldDataList>> call = apiCall.getWorldTableData();
+
+
+        call.enqueue(new Callback<List<WorldDataList>>() {
+            @Override
+            public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
+                if (!response.isSuccessful()) {
+                    confirmed_count.setText(response.code());
+                    return;
+                }
+
+                List<WorldDataList> dataResponse = response.body();
+                worldListAdapter.setData(dataResponse);
+                world_list_rv.setAdapter(worldListAdapter);
+            }
+
+
+            @Override
+            public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
+                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void fetchingRvData() {
@@ -114,7 +157,7 @@ public class FirstFrag extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
-
+                    Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -122,7 +165,7 @@ public class FirstFrag extends Fragment {
     }
 
     private void getWorldCardsData(){
-        Call<WorldCardsModel> call = apiCall.getWorldCardsData();
+        Call<WorldCardsModel> call = apiCall.getWorldCardsData(false);
 
 
         call.enqueue(new Callback<WorldCardsModel>() {

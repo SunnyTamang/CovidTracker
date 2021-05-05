@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class WorldDataList {
         @SerializedName("updated")
         @Expose
-        private Integer updated;
+        private Long updated;
         @SerializedName("country")
         @Expose
         private String country;
@@ -36,16 +36,16 @@ public class WorldDataList {
         private Integer critical;
         @SerializedName("casesPerOneMillion")
         @Expose
-        private Integer casesPerOneMillion;
+        private Double casesPerOneMillion;
         @SerializedName("deathsPerOneMillion")
         @Expose
-        private Integer deathsPerOneMillion;
+        private Double deathsPerOneMillion;
         @SerializedName("tests")
         @Expose
         private Integer tests;
         @SerializedName("testsPerOneMillion")
         @Expose
-        private Integer testsPerOneMillion;
+        private Double testsPerOneMillion;
         @SerializedName("population")
         @Expose
         private Integer population;
@@ -54,16 +54,16 @@ public class WorldDataList {
         private String continent;
         @SerializedName("oneCasePerPeople")
         @Expose
-        private Integer oneCasePerPeople;
+        private Double oneCasePerPeople;
         @SerializedName("oneDeathPerPeople")
         @Expose
-        private Integer oneDeathPerPeople;
+        private Double oneDeathPerPeople;
         @SerializedName("oneTestPerPeople")
         @Expose
-        private Integer oneTestPerPeople;
+        private Double oneTestPerPeople;
         @SerializedName("undefined")
         @Expose
-        private Integer undefined;
+        private Double undefined;
         @SerializedName("activePerOneMillion")
         @Expose
         private Double activePerOneMillion;
@@ -74,11 +74,11 @@ public class WorldDataList {
         @Expose
         private Double criticalPerOneMillion;
 
-        public Integer getUpdated() {
+        public Long getUpdated() {
             return updated;
         }
 
-        public void setUpdated(Integer updated) {
+        public void setUpdated(Long updated) {
             this.updated = updated;
         }
 
@@ -154,19 +154,19 @@ public class WorldDataList {
             this.critical = critical;
         }
 
-        public Integer getCasesPerOneMillion() {
+        public Double getCasesPerOneMillion() {
             return casesPerOneMillion;
         }
 
-        public void setCasesPerOneMillion(Integer casesPerOneMillion) {
+        public void setCasesPerOneMillion(Double casesPerOneMillion) {
             this.casesPerOneMillion = casesPerOneMillion;
         }
 
-        public Integer getDeathsPerOneMillion() {
+        public Double getDeathsPerOneMillion() {
             return deathsPerOneMillion;
         }
 
-        public void setDeathsPerOneMillion(Integer deathsPerOneMillion) {
+        public void setDeathsPerOneMillion(Double deathsPerOneMillion) {
             this.deathsPerOneMillion = deathsPerOneMillion;
         }
 
@@ -178,11 +178,11 @@ public class WorldDataList {
             this.tests = tests;
         }
 
-        public Integer getTestsPerOneMillion() {
+        public Double getTestsPerOneMillion() {
             return testsPerOneMillion;
         }
 
-        public void setTestsPerOneMillion(Integer testsPerOneMillion) {
+        public void setTestsPerOneMillion(Double testsPerOneMillion) {
             this.testsPerOneMillion = testsPerOneMillion;
         }
 
@@ -202,35 +202,35 @@ public class WorldDataList {
             this.continent = continent;
         }
 
-        public Integer getOneCasePerPeople() {
+        public Double getOneCasePerPeople() {
             return oneCasePerPeople;
         }
 
-        public void setOneCasePerPeople(Integer oneCasePerPeople) {
+        public void setOneCasePerPeople(Double oneCasePerPeople) {
             this.oneCasePerPeople = oneCasePerPeople;
         }
 
-        public Integer getOneDeathPerPeople() {
+        public Double getOneDeathPerPeople() {
             return oneDeathPerPeople;
         }
 
-        public void setOneDeathPerPeople(Integer oneDeathPerPeople) {
+        public void setOneDeathPerPeople(Double oneDeathPerPeople) {
             this.oneDeathPerPeople = oneDeathPerPeople;
         }
 
-        public Integer getOneTestPerPeople() {
+        public Double getOneTestPerPeople() {
             return oneTestPerPeople;
         }
 
-        public void setOneTestPerPeople(Integer oneTestPerPeople) {
+        public void setOneTestPerPeople(Double oneTestPerPeople) {
             this.oneTestPerPeople = oneTestPerPeople;
         }
 
-        public Integer getUndefined() {
+        public Double getUndefined() {
             return undefined;
         }
 
-        public void setUndefined(Integer undefined) {
+        public void setUndefined(Double undefined) {
             this.undefined = undefined;
         }
 
