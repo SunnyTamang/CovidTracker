@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StateWiseDataActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/bottom_round_bg"
+        >
+
+
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/LinearLayout"
@@ -31,13 +43,15 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/back_icon"
                 android:id="@+id/backbutton"
-                ></ImageView>
+
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="70"
             android:gravity="center|start"
+
             >
             <TextView
                 android:id="@+id/countyName"
@@ -45,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="normal"
                 android:textSize="20sp"
-                android:textColor="#de000000"
+                android:textColor="@color/white"
                 android:letterSpacing="0.01"
                 android:text=""
                 android:gravity="center"
@@ -295,6 +309,8 @@
 
 
     </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
