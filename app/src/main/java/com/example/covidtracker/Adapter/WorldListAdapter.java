@@ -2,6 +2,7 @@ package com.example.covidtracker.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.covidtracker.Madal.WorldDataList;
 import com.example.covidtracker.Madal.WorldListModal;
 import com.example.covidtracker.R;
+import com.example.covidtracker.StateWiseDataActivity;
 
 import java.util.List;
 
@@ -66,6 +68,17 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
         holder.totalActive.setText(String.valueOf(worldListModalList.get(position).getActive()));
         holder.totalRecovered.setText(String.valueOf(worldListModalList.get(position).getRecovered()));
         holder.totalDeceased.setText(String.valueOf(worldListModalList.get(position).getDeaths()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), StateWiseDataActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+
+
 
     }
 
