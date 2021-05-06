@@ -1,42 +1,13 @@
 package com.example.covidtracker.Madal;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
 public class StateDataModel {
 
     private String country;
     private String county;
     private String updatedAt;
     private Stats stats;
-
-    public Stats getStats() {
-        return stats;
-    }
-
-    private Object coordinates;
-    private String province;
-//    private  String stats;
-//
-//    public String getStats() {
-//        return stats;
-//    }
-    @SerializedName("CountDetails")
-    private MoreDetails moreDetails;
-
-    public StateDataModel(String country, String county, String updatedAt, Object coordinates, String province, MoreDetails moreDetails) {
-        this.country = country;
-        this.county = county;
-        this.updatedAt = updatedAt;
-        this.coordinates = coordinates;
-        this.province = province;
-        this.moreDetails = moreDetails;
-    }
-
-    public MoreDetails getMoreDetails() {
-        return moreDetails;
-    }
+    private Coordinates coordinates;
+    private Object province;
 
     public String getCountry() {
         return country;
@@ -62,27 +33,27 @@ public class StateDataModel {
         this.updatedAt = updatedAt;
     }
 
-//    public Object getStats() {
-//        return stats;
-//    }
-//
-//    public void setStats(Object stats) {
-//        this.stats = stats;
-//    }
+    public Stats getStats() {
+        return stats;
+    }
 
-    public Object getCoordinates() {
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
+
+    public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Object coordinates) {
+    public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
-    public String getProvince() {
+    public Object getProvince() {
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(Object province) {
         this.province = province;
     }
 

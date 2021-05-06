@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StateWiseDataActivity extends AppCompatActivity {
+
+    private static final String TAG = "StateWiseDataActivity";
     TextView countryName;
     TextView confirmed_count;
     TextView active_cases;
@@ -87,27 +90,33 @@ public class StateWiseDataActivity extends AppCompatActivity {
     }
 
     private void fetchingStateViewData() {
-        Call<List<StateDataModel.Stats>> call2 = apiCall.getWorldStateCardsData();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://disease.sh/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiCall = retrofit.create(ApiCall.class);
+        Call<List<StateDataModel>> call2 = apiCall.getWorldStateCardsData();
 
 
-        call2.enqueue(new Callback<List<StateDataModel.Stats>>() {
+        call2.enqueue(new Callback<List<StateDataModel>>() {
             @Override
-            public void onResponse(Call<List<StateDataModel.Stats>> call, Response<List<StateDataModel.Stats>> response) {
+            public void onResponse(Call<List<StateDataModel>> call, Response<List<StateDataModel>> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                List<StateDataModel.Stats> Posts = response.body();
+                List<StateDataModel> Posts = response.body();
 
-                for(StateDataModel.Stats post : Posts){
-
-                        Toast.makeText(StateWiseDataActivity.this,c_Name, Toast.LENGTH_SHORT).show();
-                        listOfCounts.add(post.getConfirmed());
-
+                for(int i = 0 ; i < Posts.size(); i++){
+                    if (Posts.get(i).getCountry().equals(c_Name)){
+                        //Log.d(TAG, "confirmed: " + posts.get(i).getStats().getConfirmed());
+                        //Toast.makeText(MainActivity.this,country.get(i).getStats().getConfirmed() , Toast.LENGTH_SHORT).show();
+                        //textView.append("State " + String.valueOf(country.get(i).getStats().getConfirmed()));
+                        listOfCounts.add(Posts.get(i).getStats().getConfirmed());
+                    }
                 }
-
-
 
                 //List<StateDataModel.Stats> list = dataResponse1
                 List<StateDataModel.Stats> dataResponse1 = listOfCounts;
@@ -116,7 +125,7 @@ public class StateWiseDataActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<StateDataModel.Stats>> call, Throwable t) {
+            public void onFailure(Call<List<StateDataModel>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -135,11 +144,11 @@ public class StateWiseDataActivity extends AppCompatActivity {
                     return;
                 }
 
-                List<StateDataModel> posts = response.body();
-                for(StateDataModel post : posts){
-                    if(post.getCountry().equals(c_Name)){
+                List<StateDataModel> feeds = response.body();
+                for(int j=0;j<feeds.size();j++){
+                    if(feeds.get(j).getCountry().equals(c_Name)){
                         //Toast.makeText(StateWiseDataActivity.this,c_Name, Toast.LENGTH_SHORT).show();
-                        listOfData.add(post.getProvince());
+                        listOfData.add(feeds.get(j).getProvince());
                     }
                 }
                 List<StateDataModel> dataResponse = listOfData;

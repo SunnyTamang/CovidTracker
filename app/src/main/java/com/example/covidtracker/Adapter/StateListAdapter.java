@@ -43,26 +43,10 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        int activeCases = stateListModalListCards.get(position).getConfirmed() - stateListModalListCards.get(position).getRecovered() - stateListModalListCards.get(position).getDeaths();
-//        //String countryName = stateListModalListTable.get(position).getCountry();
-//        String totalActive = String.valueOf(activeCases);
-//        String totalRecovered = String.valueOf(stateListModalListCards.get(position).getRecovered());
-//        String totalConfirmed = String.valueOf(stateListModalListCards.get(position).getConfirmed());
-//        String totalDeceased = String.valueOf(stateListModalListCards.get(position).getDeaths());
+        String totalConfirmed = String.valueOf(stateListModalListCards.get(position));
+//        //holder.stateName.setText(stateListModalListTable.get(position).getProvince());
 //
-//        holder.bind(totalConfirmed,totalActive,totalRecovered,totalDeceased);
-
-////        holder.bind(Name,T_Affected,Recovered,N_Affected,Death);
-//        int activeCases = StateListModalListCards.get(position).getConfirmed() - StateListModalListCards.get(position).getRecovered() - StateListModalListCards.get(position).getDeaths();
-//        holder.countryName.setText(stateListModalListTable.get(position).getCountry());
-//        holder.totalConfirmed.setText(String.valueOf(stateListModalListCards.get(position).getConfirmed()));
-//        holder.totalActive.setText(activeCases);
-//        holder.totalRecovered.setText(String.valueOf(stateListModalListCards.get(position).getRecovered()));
-//        holder.totalDeceased.setText(String.valueOf(stateListModalListCards.get(position).getDeaths()));
-
-        holder.totalConfirmed.setText(String.valueOf(stateListModalListCards.get(position).getDeaths()));
-       // holder.totalRecovered.setText(String.valueOf(stateListModalListCards.get(position).getMoreDetails().getRecovered()));
-       // holder.totalDeceased.setText(String.valueOf(stateListModalListCards.get(position).getMoreDetails().getDeaths()));
+        holder.bind(totalConfirmed);
 
     }
 
@@ -90,12 +74,12 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
             totalDeceased = itemView.findViewById(R.id.total_deceased);
         }
 
-        private void bind(final String TotalConfirmed, final String TotalActive, final String TotalRecovered, final String TotalDeceased) {
+        private void bind(final String TotalConfirmed) {
             //countryName.setText(CountryName);
             totalConfirmed.setText(TotalConfirmed);
-            totalActive.setText(TotalActive);
-            totalRecovered.setText(TotalRecovered);
-            totalDeceased.setText(TotalDeceased);
+//            totalActive.setText(TotalActive);
+//            totalRecovered.setText(TotalRecovered);
+//            totalDeceased.setText(TotalDeceased);
         }
 
 

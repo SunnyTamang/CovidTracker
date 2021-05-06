@@ -2,7 +2,7 @@ package com.example.covidtracker.Madal;
 
 import android.util.Log;
 
-public class MoreDetails {
+public class Stats {
     private Long confirmed;
     private Long deaths;
     private Long recovered;
@@ -25,7 +25,7 @@ public class MoreDetails {
     //Constructor
 
 
-    public MoreDetails(Long confirmed, Long deaths, Long recovered) {
+    public Stats(Long confirmed, Long deaths, Long recovered) {
         this.confirmed = confirmed;
         this.deaths = deaths;
         this.recovered = recovered;
