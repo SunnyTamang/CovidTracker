@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.covidtracker.Adapter.StateListAdapter;
+import com.example.covidtracker.Adapter.StateListAdapterStateName;
 import com.example.covidtracker.Adapter.WorldListAdapter;
 import com.example.covidtracker.Madal.StateDataModel;
 import com.example.covidtracker.Madal.WorldDataList;
@@ -38,7 +39,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-class State_Wise_Filter extends Fragment {
+public class State_Wise_Filter extends Fragment {
 
 
 //    public State_Wise_Filter() {
@@ -48,37 +49,18 @@ class State_Wise_Filter extends Fragment {
     View view;
    // private ArrayList<ExampleItem> mExampleItem;
     private RecyclerView mRecyclerView;
-    private PieChart pieChart;
+
     RecyclerView state_list_rv;
     StateListAdapter stateListAdapter;
+    StateListAdapterStateName stateListAdapterStateName;
     private ApiCall apiCall;
-    List<StateDataModel.Stats> dataResponse1;
-    List<StateDataModel> dataResponse;
+    //List<StateDataModel.Stats> dataResponse1;
+    //List<StateDataModel> dataResponse;
     Activity context;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createExampleList();
-        buildRecyclerView();
 
-        EditText editText = view.findViewById(R.id.search_state);
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filter(s.toString());
-            }
-        });
     }
     private void filter(String text){
        // ArrayList<ExampleItem>
@@ -102,6 +84,7 @@ class State_Wise_Filter extends Fragment {
         state_list_rv = view.findViewById(R.id.state_list_rv);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         stateListAdapter = new StateListAdapter();
+        stateListAdapterStateName = new StateListAdapterStateName();
         state_list_rv.setLayoutManager(manager);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -109,14 +92,40 @@ class State_Wise_Filter extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiCall = retrofit.create(ApiCall.class);
-        fetchingRecViewData();
+        //fetchingRecViewData();
+
+        //Edit Text ka kaam
+
+        createExampleList();
+        buildRecyclerView();
+
+        EditText editText = view.findViewById(R.id.edittext);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
+
 
         return view;
     }
 
     private void fetchingRecViewData() {
         Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();
-        Call<List<StateDataModel.Stats>> call2 = apiCall.getWorldStateCardsData();
+        //Call<StateDataModel.Stats> call2 = apiCall.getWorldStateCardsData();
 
 
         call.enqueue(new Callback<List<StateDataModel>>() {
@@ -128,7 +137,8 @@ class State_Wise_Filter extends Fragment {
                 }
 
                 List<StateDataModel> dataResponse = response.body();
-
+                stateListAdapterStateName.setData(dataResponse);
+                state_list_rv.setAdapter(stateListAdapter);
 
 
 
@@ -141,29 +151,29 @@ class State_Wise_Filter extends Fragment {
             }
         });
 
-        call2.enqueue(new Callback<List<StateDataModel.Stats>>() {
-            @Override
-            public void onResponse(Call<List<StateDataModel.Stats>> call, Response<List<StateDataModel.Stats>> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
-                    return;
-                }
+//        call2.enqueue(new Callback<StateDataModel.Stats>() {
+//            @Override
+//            public void onResponse(Call<StateDataModel.Stats> call, Response<StateDataModel.Stats> response) {
+//                if (!response.isSuccessful()) {
+//                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
+//                    return;
+//                }
+//
+//                //List<StateDataModel.Stats> dataResponse1 = response.body();
+//                //stateListAdapter.setData(dataResponse1);
+//                state_list_rv.setAdapter(stateListAdapter);
+//
+//
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<StateDataModel.Stats> call, Throwable t) {
+//                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
 
-                List<StateDataModel.Stats> dataResponse1 = response.body();
 
-
-
-            }
-
-
-            @Override
-            public void onFailure(Call<List<StateDataModel.Stats>> call, Throwable t) {
-                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        stateListAdapter.setData(dataResponse,dataResponse1);
-        state_list_rv.setAdapter(stateListAdapter);
     }
 
 

@@ -1,13 +1,42 @@
 package com.example.covidtracker.Madal;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class StateDataModel {
 
     private String country;
     private String county;
     private String updatedAt;
-    private String stats;
-    private Double coordinates;
+    private Stats stats;
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    private Object coordinates;
     private String province;
+//    private  String stats;
+//
+//    public String getStats() {
+//        return stats;
+//    }
+    @SerializedName("CountDetails")
+    private MoreDetails moreDetails;
+
+    public StateDataModel(String country, String county, String updatedAt, Object coordinates, String province, MoreDetails moreDetails) {
+        this.country = country;
+        this.county = county;
+        this.updatedAt = updatedAt;
+        this.coordinates = coordinates;
+        this.province = province;
+        this.moreDetails = moreDetails;
+    }
+
+    public MoreDetails getMoreDetails() {
+        return moreDetails;
+    }
 
     public String getCountry() {
         return country;
@@ -33,19 +62,19 @@ public class StateDataModel {
         this.updatedAt = updatedAt;
     }
 
-    public String getStats() {
-        return stats;
-    }
+//    public Object getStats() {
+//        return stats;
+//    }
+//
+//    public void setStats(Object stats) {
+//        this.stats = stats;
+//    }
 
-    public void setStats(String stats) {
-        this.stats = stats;
-    }
-
-    public Double getCoordinates() {
+    public Object getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Double coordinates) {
+    public void setCoordinates(Object coordinates) {
         this.coordinates = coordinates;
     }
 

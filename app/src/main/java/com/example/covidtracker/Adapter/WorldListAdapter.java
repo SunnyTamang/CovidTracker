@@ -1,6 +1,5 @@
 package com.example.covidtracker.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,10 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covidtracker.Madal.WorldDataList;
-import com.example.covidtracker.Madal.WorldListModal;
 import com.example.covidtracker.R;
 import com.example.covidtracker.StateWiseDataActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.ViewHolder> {
@@ -27,6 +26,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
     Context context;
 
     private OnItemClickListener mListener;
+    private List<WorldDataList> mExampleList = new ArrayList<>();
 
     //Interface for RV onclick listener
     public interface OnItemClickListener{
@@ -123,5 +123,10 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
             totalRecovered.setText(TotalRecovered);
             totalDeceased.setText(TotalDeceased);
         }
+    }
+
+    public void filterList(ArrayList<WorldDataList> filteredList) {
+        mExampleList = filteredList;
+        notifyDataSetChanged();
     }
 }

@@ -12,12 +12,15 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +61,9 @@ public class FirstFrag extends Fragment {
     RecyclerView world_list_rv;
     Activity context;
     WorldListAdapter worldListAdapter;
+    private List<WorldDataList> mExampleList = new ArrayList<>();
+
+    //private WorldListAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,7 +116,40 @@ public class FirstFrag extends Fragment {
         getWorldCardsData();
         fetchingRecViewData();
 
+
+
+        EditText editText = view.findViewById(R.id.edittext);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
         return view;
+    }
+
+//For search Filter
+    private void filter(String text) {
+        ArrayList<WorldDataList> filteredList = new ArrayList<>();
+
+        for (WorldDataList item : mExampleList) {
+            if (item.getCountry().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        worldListAdapter.filterList(filteredList);
     }
 
     private void fetchingRecViewData() {
@@ -125,7 +164,12 @@ public class FirstFrag extends Fragment {
                     return;
                 }
 
+
                 List<WorldDataList> dataResponse = response.body();
+
+                for(WorldDataList list : response.body()){
+                    mExampleList.add(list);
+                }
                 worldListAdapter.setData(dataResponse);
                 world_list_rv.setAdapter(worldListAdapter);
             }
