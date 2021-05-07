@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StateWiseDataActivity">
+<!--    android:background="#212B46"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="218dp"
         tools:ignore="MissingConstraints"
-        android:background="#212B46"
+        android:background="#475B5A"
 
         >
 
@@ -323,8 +324,15 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_margin="16dp"
+            android:paddingStart="12dp"
+            android:drawablePadding="12dp"
             android:hint="Search state"
-            android:background="@drawable/custom_search"/>
+            android:background="@drawable/custom_search"
+            android:textColor="@color/black"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+
+            android:paddingLeft="12dp"
+            />
 
         <LinearLayout
             android:id="@+id/linearLayout"

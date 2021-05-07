@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-
+<!--android:background="#212B46"-->
     <RelativeLayout
         android:id="@+id/topbglayout"
         android:layout_width="match_parent"
         android:layout_height="218dp"
-        android:background="#212B46">
+        android:background="#475B5A"
+        >
 
         <ImageView
             android:id="@+id/imageView2"
