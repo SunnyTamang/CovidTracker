@@ -124,32 +124,32 @@ public class State_Wise_Filter extends Fragment {
     }
 
     private void fetchingRecViewData() {
-        Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();
+       // Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();
         //Call<StateDataModel.Stats> call2 = apiCall.getWorldStateCardsData();
 
 
-        call.enqueue(new Callback<List<StateDataModel>>() {
-            @Override
-            public void onResponse(Call<List<StateDataModel>> call, Response<List<StateDataModel>> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
-                    return;
-                }
-
-                List<StateDataModel> dataResponse = response.body();
-                stateListAdapterStateName.setData(dataResponse);
-                state_list_rv.setAdapter(stateListAdapter);
-
-
-
-            }
-
-
-            @Override
-            public void onFailure(Call<List<StateDataModel>> call, Throwable t) {
-                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+//        call.enqueue(new Callback<List<StateDataModel>>() {
+//            @Override
+//            public void onResponse(Call<List<StateDataModel>> call, Response<List<StateDataModel>> response) {
+//                if (!response.isSuccessful()) {
+//                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
+//                    return;
+//                }
+//
+//                List<StateDataModel> dataResponse = response.body();
+//                stateListAdapterStateName.setData(dataResponse);
+//                state_list_rv.setAdapter(stateListAdapter);
+//
+//
+//
+//            }
+//
+//
+//            @Override
+//            public void onFailure(Call<List<StateDataModel>> call, Throwable t) {
+//                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        });
 
 //        call2.enqueue(new Callback<StateDataModel.Stats>() {
 //            @Override

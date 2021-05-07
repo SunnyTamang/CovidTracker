@@ -84,19 +84,19 @@ public class StateWiseDataActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiCall = retrofit.create(ApiCall.class);
-        fetchingRecViewData();
+        //fetchingRecViewData();
         fetchingStateViewData();
 
     }
 
     private void fetchingStateViewData() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://disease.sh/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiCall = retrofit.create(ApiCall.class);
-        Call<List<StateDataModel>> call2 = apiCall.getWorldStateCardsData();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://disease.sh/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        apiCall = retrofit.create(ApiCall.class);
+       Call<List<StateDataModel>> call2 = apiCall.getWorldStateCardsData();
 
 
         call2.enqueue(new Callback<List<StateDataModel>>() {
@@ -114,14 +114,21 @@ public class StateWiseDataActivity extends AppCompatActivity {
                         //Log.d(TAG, "confirmed: " + posts.get(i).getStats().getConfirmed());
                         //Toast.makeText(MainActivity.this,country.get(i).getStats().getConfirmed() , Toast.LENGTH_SHORT).show();
                         //textView.append("State " + String.valueOf(country.get(i).getStats().getConfirmed()));
-                        listOfCounts.add(Posts.get(i).getStats().getConfirmed());
+                        Log.d(TAG, "confirmed: " + Posts.get(i).getCountry());
+                        listOfCounts.add(String.valueOf(Posts.get(i).getStats().getConfirmed()));
+                        listOfData.add(Posts.get(i).getProvince());
                     }
                 }
 
                 //List<StateDataModel.Stats> list = dataResponse1
-                List<StateDataModel.Stats> dataResponse1 = listOfCounts;
+                List<StateDataModel> dataResponse1 = listOfCounts;
+                List<StateDataModel> dataResponse = listOfData;
                 stateListAdapter.setData(dataResponse1);
                 state_list_rv.setAdapter(stateListAdapter);
+
+
+                stateListAdapterStateName.setData(dataResponse);
+                state_list_rv.setAdapter(stateListAdapterStateName);
             }
 
             @Override
@@ -132,7 +139,9 @@ public class StateWiseDataActivity extends AppCompatActivity {
     }
 
     private void fetchingRecViewData() {
-        Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();
+        //Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();
+
+        Call<List<StateDataModel>> call = apiCall.getWorldStateCardsData();
 
 
 

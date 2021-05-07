@@ -22,11 +22,11 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
     public StateListAdapter() {
     }
 
-    List<StateDataModel.Stats> stateListModalListCards;
+    List<StateDataModel> stateListModalListCards;
 
     Context context;
 
-    public void setData( List<StateDataModel.Stats> stateListModalListCards) {
+    public void setData( List<StateDataModel> stateListModalListCards) {
         this.stateListModalListCards = stateListModalListCards;
 
         notifyDataSetChanged();
@@ -35,16 +35,16 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StateListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.covid_result_table_items_state, parent, false);
-        return new ViewHolder(view);
+        return new StateListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StateListAdapter.ViewHolder holder, int position) {
         String totalConfirmed = String.valueOf(stateListModalListCards.get(position));
-//        //holder.stateName.setText(stateListModalListTable.get(position).getProvince());
+        //holder.totalConfirmed.setText(String.valueOf(stateListModalListCards.get(position)));
 //
         holder.bind(totalConfirmed);
 
@@ -69,9 +69,9 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
             super(itemView);
             //countryName = itemView.findViewById(R.id.country_name);
             totalConfirmed = itemView.findViewById(R.id.total_confirmed);
-            totalActive = itemView.findViewById(R.id.total_active);
-            totalRecovered = itemView.findViewById(R.id.total_recovered);
-            totalDeceased = itemView.findViewById(R.id.total_deceased);
+//            totalActive = itemView.findViewById(R.id.total_active);
+//            totalRecovered = itemView.findViewById(R.id.total_recovered);
+//            totalDeceased = itemView.findViewById(R.id.total_deceased);
         }
 
         private void bind(final String TotalConfirmed) {
