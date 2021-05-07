@@ -125,7 +125,7 @@ public class WorldListAdapter extends RecyclerView.Adapter<WorldListAdapter.View
         }
     }
 
-    public void filterList(ArrayList<WorldDataList> filteredList) {
+    public void filterList(List<WorldDataList> filteredList) {
         mExampleList = filteredList;
         notifyDataSetChanged();
     }

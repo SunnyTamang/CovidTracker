@@ -319,11 +319,12 @@
         android:layout_below="@+id/stateCardView"
         >
         <EditText
-            android:id="@+id/edittext"
+            android:id="@+id/searchState"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_margin="16dp"
-            android:hint="Search state"/>
+            android:hint="Search state"
+            android:background="@drawable/custom_search"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"

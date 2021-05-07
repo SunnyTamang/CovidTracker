@@ -5,13 +5,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidtracker.Adapter.StateListAdapter;
 import com.example.covidtracker.Adapter.StateListAdapterStateName;
 import com.example.covidtracker.Madal.StateDataModel;
+import com.example.covidtracker.Madal.WorldDataList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,6 +49,8 @@ public class StateWiseDataActivity extends AppCompatActivity {
     StateListAdapter stateListAdapter;
     StateListAdapterStateName stateListAdapterStateName;
     private ApiCall apiCall;
+
+    private List<StateDataModel> mStateFilteredList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,15 +93,41 @@ public class StateWiseDataActivity extends AppCompatActivity {
         //fetchingRecViewData();
         fetchingStateViewData();
 
+        EditText editText = findViewById(R.id.searchState);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
+    }
+
+    private void filter(String text) {
+        List<StateDataModel> filteredList = new ArrayList<>();
+
+        for (int k = 0; k < mStateFilteredList.size(); k++) {
+            if (mStateFilteredList.get(k).getCountry().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(mStateFilteredList.get(k));
+            }
+            stateListAdapter.setData(filteredList);
+            state_list_rv.setAdapter(stateListAdapter);
+
+        }
     }
 
     private void fetchingStateViewData() {
 
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://disease.sh/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        apiCall = retrofit.create(ApiCall.class);
        Call<List<StateDataModel>> call2 = apiCall.getWorldStateCardsData();
 
 
@@ -109,11 +141,13 @@ public class StateWiseDataActivity extends AppCompatActivity {
 
                 List<StateDataModel> Posts = response.body();
 
+                //Adding in the list to ssearch after
+                for(StateDataModel list : response.body()){
+                    mStateFilteredList.add(list);
+                }
+
                 for(int i = 0 ; i < Posts.size(); i++){
                     if (Posts.get(i).getCountry().equals(c_Name)){
-                        //Log.d(TAG, "confirmed: " + posts.get(i).getStats().getConfirmed());
-                        //Toast.makeText(MainActivity.this,country.get(i).getStats().getConfirmed() , Toast.LENGTH_SHORT).show();
-                        //textView.append("State " + String.valueOf(country.get(i).getStats().getConfirmed()));
                         Log.d(TAG, "confirmed: " + Posts.get(i).getCountry());
                         listOfCounts.add(String.valueOf(Posts.get(i).getStats().getConfirmed()));
                         listOfData.add(Posts.get(i).getProvince());
@@ -137,6 +171,9 @@ public class StateWiseDataActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    // This method is deactivated for testing purpose
 
     private void fetchingRecViewData() {
         //Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();

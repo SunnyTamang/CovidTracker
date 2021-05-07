@@ -47,6 +47,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FirstFrag extends Fragment {
 
+    private static final String TAG = "FirstFrag";
     NavController navController;
     Button world_btn;
     View view;
@@ -141,15 +142,22 @@ public class FirstFrag extends Fragment {
 
 //For search Filter
     private void filter(String text) {
-        ArrayList<WorldDataList> filteredList = new ArrayList<>();
+        List<WorldDataList> filteredList = new ArrayList<>();
 
-        for (WorldDataList item : mExampleList) {
-            if (item.getCountry().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+//        for (WorldDataList item : mExampleList) {
+//            if (item.getCountry().toLowerCase().contains(text.toLowerCase())) {
+//                filteredList.add(item);
+//            }
+
+
+        for (int k = 0; k < mExampleList.size(); k++) {
+            if (mExampleList.get(k).getCountry().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(mExampleList.get(k));
             }
-        }
+            worldListAdapter.setData(filteredList);
+            world_list_rv.setAdapter(worldListAdapter);
 
-        worldListAdapter.filterList(filteredList);
+        }
     }
 
     private void fetchingRecViewData() {
