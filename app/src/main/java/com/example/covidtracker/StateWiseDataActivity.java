@@ -207,9 +207,16 @@ public class StateWiseDataActivity extends AppCompatActivity {
 
 //                stateListAdapter.setData(dataResponse1);
 //                state_list_rv.setAdapter(stateListAdapter);
+                for (int i=0;i<listOfData.size();i++){
+                    if(listOfData.get(i) != null){
+                        stateListAdapterStateName.setData(dataResponse,confirmedCount,recoveredCount, deceasedCount, activeCount);
+                        state_list_rv.setAdapter(stateListAdapterStateName);
+                    }
+                    else
+                        Toast.makeText(StateWiseDataActivity.this, "Province data is not available for " + c_Name, Toast.LENGTH_SHORT).show();
+                }
 
-                stateListAdapterStateName.setData(dataResponse,confirmedCount,recoveredCount, deceasedCount, activeCount);
-                state_list_rv.setAdapter(stateListAdapterStateName);
+
             }
 
             @Override
