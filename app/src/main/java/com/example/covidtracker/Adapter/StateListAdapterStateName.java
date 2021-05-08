@@ -70,16 +70,28 @@ public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAda
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView stateName;
+        private TextView total_confirmed;
+        private TextView total_active;
+        private TextView total_recovered;
+        private TextView total_deceased;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             stateName = itemView.findViewById(R.id.state_name);
+            total_confirmed = itemView.findViewById(R.id.total_confirmed);
+            total_active = itemView.findViewById(R.id.total_active);
+            total_recovered = itemView.findViewById(R.id.total_recovered);
+            total_deceased = itemView.findViewById(R.id.total_deceased);
 
         }
 
-        private void bind(final String StateName) {
+        private void bind(final String StateName,final String Confirmed,final String Active,final String Recovered,final String Deceased) {
             stateName.setText(StateName);
+            total_confirmed.setText(Confirmed);
+            total_active.setText(Active);
+            total_recovered.setText(Recovered);
+            total_deceased.setText(Deceased);
 
         }
 
