@@ -80,18 +80,18 @@ public class State_Wise_Filter extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_state_wise_data, container, false);
-        state_list_rv = view.findViewById(R.id.state_list_rv);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        stateListAdapter = new StateListAdapter();
-        stateListAdapterStateName = new StateListAdapterStateName();
-        state_list_rv.setLayoutManager(manager);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://disease.sh/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiCall = retrofit.create(ApiCall.class);
+        view = inflater.inflate(R.layout.fragment_state__wise__filter, container, false);
+//        state_list_rv = view.findViewById(R.id.state_list_rv);
+//        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+//        stateListAdapter = new StateListAdapter();
+//        stateListAdapterStateName = new StateListAdapterStateName();
+//        state_list_rv.setLayoutManager(manager);
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://disease.sh/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//        apiCall = retrofit.create(ApiCall.class);
         //fetchingRecViewData();
 
         //Edit Text ka kaam
@@ -101,23 +101,23 @@ public class State_Wise_Filter extends Fragment {
 
         EditText editText = view.findViewById(R.id.edittext);
 
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filter(s.toString());
-            }
-        });
-
+//        editText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                filter(s.toString());
+//            }
+//        });
+//
 
 
         return view;

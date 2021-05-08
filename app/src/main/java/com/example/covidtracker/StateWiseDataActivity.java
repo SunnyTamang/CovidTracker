@@ -43,7 +43,10 @@ public class StateWiseDataActivity extends AppCompatActivity {
     String D_count="";
 
     private List listOfData = new ArrayList<>();
-    private List listOfCounts = new ArrayList<>();
+    private List listOfConfirmed = new ArrayList<>();
+    private List listOfRecovered = new ArrayList<>();
+    private List listOfDeceased = new ArrayList<>();
+    private List listOfActive = new ArrayList<>();
 
     RecyclerView state_list_rv;
     StateListAdapter stateListAdapter;
@@ -62,6 +65,7 @@ public class StateWiseDataActivity extends AppCompatActivity {
         active_cases = findViewById(R.id.active_count);
         recovered_count = findViewById(R.id.recovered_count);
         deceased_count = findViewById(R.id.deceased_count);
+
 
         c_Name = getIntent().getExtras().getString("Country Name");
         C_count = getIntent().getStringExtra("Total Confirmed");
@@ -114,16 +118,48 @@ public class StateWiseDataActivity extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        List<StateDataModel> filteredList = new ArrayList<>();
+        List filteredList = new ArrayList<>();
+        List nullFiltration = new ArrayList<>();
 
-        for (int k = 0; k < mStateFilteredList.size(); k++) {
-            if (mStateFilteredList.get(k).getCountry().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(mStateFilteredList.get(k));
+        for (int k = 0; k < listOfData.size(); k++) {
+
+            if (listOfData.get(k) != null ){
+                nullFiltration.add(listOfData.get(k));
             }
-            stateListAdapter.setData(filteredList);
-            state_list_rv.setAdapter(stateListAdapter);
 
         }
+        if(nullFiltration.size() == 0){
+            Toast.makeText(this, "There is province data", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            for (int k = 0; k < nullFiltration.size(); k++) {
+//            if (nullFiltration.get(k).getProvince() == null ){
+//                Log.d(TAG, "This is null");
+//
+//                //filteredList.add();
+//            }
+//            else
+                if(nullFiltration.get(k).toString().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(nullFiltration.get(k));
+
+                }
+
+                List<StateDataModel> searchState = filteredList;
+
+
+
+
+                //stateListAdapterStateName.filterList(filteredList);
+
+                stateListAdapterStateName.setData(searchState,listOfConfirmed,listOfRecovered,listOfDeceased,listOfActive);
+                state_list_rv.setAdapter(stateListAdapterStateName);
+
+            }
+
+        }
+
+
     }
 
     private void fetchingStateViewData() {
@@ -149,19 +185,30 @@ public class StateWiseDataActivity extends AppCompatActivity {
                 for(int i = 0 ; i < Posts.size(); i++){
                     if (Posts.get(i).getCountry().equals(c_Name)){
                         Log.d(TAG, "confirmed: " + Posts.get(i).getCountry());
-                        listOfCounts.add(String.valueOf(Posts.get(i).getStats().getConfirmed()));
+                        listOfConfirmed.add(Posts.get(i).getStats().getConfirmed());
+                        listOfRecovered.add(Posts.get(i).getStats().getRecovered());
+                        listOfDeceased.add(Posts.get(i).getStats().getDeaths());
+                        listOfActive.add((Posts.get(i).getStats().getConfirmed() - Posts.get(i).getStats().getRecovered() - Posts.get(i).getStats().getDeaths()));
                         listOfData.add(Posts.get(i).getProvince());
                     }
                 }
-
+//                List<StateDataModel> data_add_all = new ArrayList<>();
+//                data_add_all.addAll(listOfConfirm);
                 //List<StateDataModel.Stats> list = dataResponse1
-                List<StateDataModel> dataResponse1 = listOfCounts;
+
+
+                List<StateDataModel> confirmedCount = listOfConfirmed;
+                List<StateDataModel> recoveredCount = listOfRecovered;
+                List<StateDataModel> deceasedCount = listOfDeceased;
+                List<StateDataModel> activeCount = listOfActive;
+
                 List<StateDataModel> dataResponse = listOfData;
-                stateListAdapter.setData(dataResponse1);
-                state_list_rv.setAdapter(stateListAdapter);
 
 
-                stateListAdapterStateName.setData(dataResponse);
+//                stateListAdapter.setData(dataResponse1);
+//                state_list_rv.setAdapter(stateListAdapter);
+
+                stateListAdapterStateName.setData(dataResponse,confirmedCount,recoveredCount, deceasedCount, activeCount);
                 state_list_rv.setAdapter(stateListAdapterStateName);
             }
 
@@ -198,7 +245,7 @@ public class StateWiseDataActivity extends AppCompatActivity {
                     }
                 }
                 List<StateDataModel> dataResponse = listOfData;
-                stateListAdapterStateName.setData(dataResponse);
+               // stateListAdapterStateName.setData(dataResponse);
                 state_list_rv.setAdapter(stateListAdapterStateName);
 
 

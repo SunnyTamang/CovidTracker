@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covidtracker.Madal.StateDataModel;
+import com.example.covidtracker.Madal.WorldDataList;
 import com.example.covidtracker.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAdapterStateName.ViewHolder>{
@@ -22,11 +24,19 @@ public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAda
 
 
     List<StateDataModel> stateListModalListTable;
+    List<StateDataModel> confirmedCount;
+    List<StateDataModel> recoveredCount;
+    List<StateDataModel> deceasedCount;
+    List<StateDataModel> activeCount;
     Context context;
+    private List<StateDataModel> mStateFilteredList = new ArrayList<>();
 
-    public void setData( List<StateDataModel> stateListModalListTable) {
+    public void setData( List<StateDataModel> stateListModalListTable,List<StateDataModel> confirmedCount, List<StateDataModel> recoveredCount, List<StateDataModel> deceasedCount, List<StateDataModel> activeCount) {
         this.stateListModalListTable = stateListModalListTable;
-
+        this.confirmedCount = confirmedCount;
+        this.recoveredCount = recoveredCount;
+        this.deceasedCount = deceasedCount;
+        this.activeCount = activeCount;
         notifyDataSetChanged();
 
     }
@@ -47,11 +57,12 @@ public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAda
     @Override
     public void onBindViewHolder(@NonNull StateListAdapterStateName.ViewHolder holder, int position) {
 
+        //int activeCount = confirmedCount.get(position).getStats().getConfirmed();
         String stateName = String.valueOf(stateListModalListTable.get(position));
-        String Confirmed = String.valueOf(stateListModalListTable.get(position));
-        String Active = String.valueOf((stateListModalListTable.get(position)));
-        String Recovered = String.valueOf((stateListModalListTable.get(position)));
-        String Deceased = String.valueOf(stateListModalListTable.get(position));
+        String Confirmed = String.valueOf(confirmedCount.get(position));
+        String Active = String.valueOf(activeCount.get(position));
+        String Recovered = String.valueOf((recoveredCount.get(position)));
+        String Deceased = String.valueOf(deceasedCount.get(position));
         //holder.stateName.setText(stateListModalListTable.get(position).getProvince());
 
         holder.bind(stateName,Confirmed,Active,Recovered,Deceased);
@@ -99,5 +110,12 @@ public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAda
         }
 
 
+
+
+    }
+
+    public void filterList(List<StateDataModel> filteredList) {
+        mStateFilteredList = filteredList;
+        notifyDataSetChanged();
     }
 }
