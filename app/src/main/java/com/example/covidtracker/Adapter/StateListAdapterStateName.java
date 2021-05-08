@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,9 +48,13 @@ public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAda
     public void onBindViewHolder(@NonNull StateListAdapterStateName.ViewHolder holder, int position) {
 
         String stateName = String.valueOf(stateListModalListTable.get(position));
+        String Confirmed = String.valueOf(stateListModalListTable.get(position));
+        String Active = String.valueOf((stateListModalListTable.get(position)));
+        String Recovered = String.valueOf((stateListModalListTable.get(position)));
+        String Deceased = String.valueOf(stateListModalListTable.get(position));
         //holder.stateName.setText(stateListModalListTable.get(position).getProvince());
 
-        holder.bind(stateName);
+        holder.bind(stateName,Confirmed,Active,Recovered,Deceased);
         //holder.countryName.setText(stateListModalListTable.get(position).getProvince());
 
 
@@ -86,7 +89,7 @@ public class StateListAdapterStateName extends RecyclerView.Adapter<StateListAda
 
         }
 
-        private void bind(final String StateName,final String Confirmed,final String Active,final String Recovered,final String Deceased) {
+        private void bind(final String StateName, final String Confirmed, final String Active, final String Recovered, final String Deceased) {
             stateName.setText(StateName);
             total_confirmed.setText(Confirmed);
             total_active.setText(Active);

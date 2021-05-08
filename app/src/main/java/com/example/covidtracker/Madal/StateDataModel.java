@@ -7,7 +7,7 @@ public class StateDataModel {
     private String updatedAt;
     private Stats stats;
     private Coordinates coordinates;
-    private Object province;
+    private String province;
 
     public String getCountry() {
         return country;
@@ -53,7 +53,7 @@ public class StateDataModel {
         return province;
     }
 
-    public void setProvince(Object province) {
+    public void setProvince(String province) {
         this.province = province;
     }
 
