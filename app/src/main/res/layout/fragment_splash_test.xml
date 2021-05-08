@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-
+<!--android:background="#212B46"-->
     <RelativeLayout
         android:id="@+id/topbglayout"
         android:layout_width="match_parent"
         android:layout_height="218dp"
-        android:background="#212B46">
+        android:background="#475B5A"
+        >
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="140dp"
             android:layout_height="100dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/corona_logo"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="12dp"
-            />
+            android:scaleType="fitStart"
+            android:src="@drawable/corona_logo" />
 
         <TextView
             android:id="@+id/covidtext"
@@ -52,34 +52,34 @@
             app:layout_constraintStart_toEndOf="@+id/covidtext"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView2"-->
-<!--            android:layout_width="137dp"-->
-<!--            android:layout_height="141dp"-->
-<!--            android:layout_gravity="bottom|left"-->
-<!--            android:scaleType="fitStart"-->
-<!--            tools:src="@drawable/corona_logo" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView2"-->
+        <!--            android:layout_width="137dp"-->
+        <!--            android:layout_height="141dp"-->
+        <!--            android:layout_gravity="bottom|left"-->
+        <!--            android:scaleType="fitStart"-->
+        <!--            tools:src="@drawable/corona_logo" />-->
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="102dp"
             android:layout_height="87dp"
             android:layout_alignParentEnd="true"
-            android:scaleType="fitStart"
-            android:src="@drawable/corona_logo"
+            android:layout_alignParentRight="true"
             android:layout_margin="12dp"
-            android:layout_alignParentRight="true" />
+            android:scaleType="fitStart"
+            android:src="@drawable/corona_logo" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="65dp"
             android:layout_height="63dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:scaleType="fitStart"
             android:layout_margin="12dp"
-            android:src="@drawable/corona_logo"
-            android:layout_alignParentRight="true" />
+            android:scaleType="fitStart"
+            android:src="@drawable/corona_logo" />
 
 
     </RelativeLayout>
@@ -89,17 +89,17 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="120dp"
         android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        >
+        app:cardCornerRadius="12dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:padding="4dp"
             android:orientation="vertical"
+            android:padding="4dp"
 
             >
 
@@ -108,35 +108,37 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="horizontal">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#f2f3f4"
-                    app:cardCornerRadius="8dp"
+                    android:layout_margin="8dp"
                     android:layout_weight="1"
                     android:elevation="3dp"
+                    android:translationX="3dp"
                     android:translationY="3dp"
                     android:translationZ="3dp"
-                    android:translationX="3dp"
-                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#f2f3f4"
+                    app:cardCornerRadius="8dp"
 
                     >
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:orientation="vertical"
+                        android:layout_gravity="start"
                         android:gravity="center"
-                        android:layout_gravity="start">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/confirmed_cases"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:fontFamily="@font/lato"
-                            android:layout_marginTop="6dp"
                             android:layout_marginLeft="4dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginRight="4dp"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center"
                             android:text="Confirmed"
                             android:textColor="#6D767E"
                             android:textSize="16sp"
@@ -147,13 +149,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
                             android:layout_marginTop="4dp"
-                            android:fontFamily="@font/roboto"
-                            android:textColor="#ff6666"
-                            android:gravity="center"
-                            android:textSize="14sp"
+                            android:layout_marginRight="4dp"
                             android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center"
+                            android:textColor="#ff6666"
+                            android:textSize="14sp"
                             android:textStyle="normal" />
 
                     </LinearLayout>
@@ -162,31 +164,31 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="8dp"
                     android:elevation="3dp"
+                    android:translationX="3dp"
                     android:translationY="3dp"
                     android:translationZ="3dp"
-                    android:translationX="3dp"
-                    android:layout_margin="8dp"
                     app:cardBackgroundColor="#f2f3f4"
-                    >
+                    app:cardCornerRadius="8dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:orientation="vertical"
+                        android:layout_gravity="start"
                         android:gravity="center"
-                        android:layout_gravity="start">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/active_cases"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:fontFamily="@font/lato"
-                            android:layout_marginTop="6dp"
                             android:layout_marginLeft="4dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginRight="4dp"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center"
                             android:text="Active"
                             android:textColor="#6D767E"
                             android:textSize="14sp"
@@ -199,10 +201,10 @@
                             android:layout_marginLeft="4dp"
                             android:layout_marginTop="4dp"
                             android:layout_marginRight="4dp"
-                            android:fontFamily="@font/roboto"
-                            android:textColor="#2086FE"
-                            android:gravity="center"
                             android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center"
+                            android:textColor="#2086FE"
                             android:textSize="14sp"
                             android:textStyle="normal" />
 
@@ -212,21 +214,21 @@
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="2">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_margin="8dp"
+                    android:layout_weight="1"
                     android:elevation="3dp"
+                    android:translationX="3dp"
                     android:translationY="3dp"
                     android:translationZ="3dp"
-                    android:translationX="3dp"
                     app:cardBackgroundColor="#f2f3f4"
                     app:cardCornerRadius="8dp">
 
@@ -241,27 +243,28 @@
                             android:id="@+id/recovered_cases"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/lato"
-                            android:layout_marginTop="6dp"
                             android:layout_marginLeft="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginRight="4dp"
+                            android:fontFamily="@font/lato"
                             android:gravity="center"
                             android:text="Recovered"
                             android:textColor="#6D767E"
-                            android:layout_marginRight="4dp"
                             android:textSize="14sp"
                             android:textStyle="normal" />
+
                         <TextView
                             android:id="@+id/recovered_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
                             android:layout_marginTop="4dp"
+                            android:layout_marginRight="4dp"
                             android:layout_marginBottom="4dp"
                             android:fontFamily="@font/roboto"
+                            android:gravity="center"
                             android:textColor="#2DAA4A"
                             android:textSize="14sp"
-                            android:gravity="center"
                             android:textStyle="normal" />
 
                     </LinearLayout>
@@ -270,36 +273,36 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="8dp"
                     android:elevation="3dp"
+                    android:translationX="3dp"
                     android:translationY="3dp"
                     android:translationZ="3dp"
-                    android:translationX="3dp"
-                    android:layout_margin="8dp"
                     app:cardBackgroundColor="#f2f3f4"
-                    >
+                    app:cardCornerRadius="8dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:gravity="center"
                         android:layout_gravity="start"
-                        >
+                        android:gravity="center"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/deceased_cases"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/lato"
-                            android:layout_marginTop="6dp"
                             android:layout_marginLeft="4dp"
-                            android:gravity="center"
+                            android:layout_marginTop="6dp"
                             android:layout_marginRight="4dp"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center"
                             android:text="Deceased"
                             android:textColor="#6D767E"
                             android:textSize="14sp"
-                            android:textStyle="normal"
-                            />
+                            android:textStyle="normal" />
+
                         <TextView
                             android:id="@+id/deceased_count"
                             android:layout_width="match_parent"
@@ -308,9 +311,9 @@
                             android:layout_marginTop="4dp"
                             android:layout_marginRight="4dp"
                             android:fontFamily="@font/roboto"
+                            android:gravity="center"
                             android:textColor="#6D767E"
                             android:textSize="14sp"
-                            android:gravity="center"
                             android:textStyle="normal" />
 
                     </LinearLayout>
@@ -319,57 +322,83 @@
             </LinearLayout>
 
 
-
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/search_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/cardView">
+    <EditText
+        android:id="@+id/edittext"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="16dp"
+        android:paddingStart="12dp"
+        android:drawablePadding="12dp"
+        tools:ignore="MissingConstraints"
+        android:background="@drawable/custom_search"
+
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:hint="Search"
+        android:paddingLeft="12dp"
+        />
+    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cardView"
-        android:weightSum="5"
-        android:gravity="center"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="4dp"
+        android:layout_below="@+id/search_linear"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="4dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+
         <TextView
+            android:id="@+id/country_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.85"
-            android:text="Countries"
-            android:textSize="14sp"
-            android:textColor="#000"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-
             android:letterSpacing="0.03"
-            android:id="@+id/country_name"/>
+            android:text="Countries"
+
+            android:textColor="#000"
+            android:textSize="14sp" />
+
         <TextView
+            android:id="@+id/total_affected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Confirmed"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:textColor="#000"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
             android:letterSpacing="0.03"
-            android:id="@+id/total_affected"/>
+            android:text="Confirmed"
+            android:textColor="#000"
+            android:textSize="12sp" />
+
         <TextView
+            android:id="@+id/total_recovered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.05"
-            android:text="Active"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:textColor="#000"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
             android:letterSpacing="0.03"
-            android:id="@+id/total_recovered"/>
+            android:text="Active"
+            android:textColor="#000"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/new_affected"
@@ -382,30 +411,31 @@
             android:text="Recovered"
             android:textColor="#000"
             android:textSize="12sp" />
+
         <TextView
+            android:id="@+id/total_deaths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.05"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.03"
             android:text="Deceased"
             android:textColor="#000"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.03"
-            android:gravity="center"
-            android:textSize="12sp"
-            android:id="@+id/total_deaths"/>
+            android:textSize="12sp" />
 
 
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/world_list_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:layout_below="@+id/linearLayout"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        />
+        android:scrollbars="none" />
 
 
 </RelativeLayout>

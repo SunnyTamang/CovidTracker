@@ -1,10 +1,13 @@
 package com.example.covidtracker.Adapter;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,51 +22,44 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
     public StateListAdapter() {
     }
 
-    List<StateDataModel.Stats> StateListModalListCards;
-    List<StateDataModel> StateListModalListTable;
+    List<StateDataModel> stateListModalListCards;
+
     Context context;
 
-    public void setData(List<StateDataModel.Stats> StateListModalListCards, List<StateDataModel> StateListModalListTable) {
-        this.StateListModalListCards = StateListModalListCards;
-        this.StateListModalListTable = StateListModalListTable;
+    public void setData( List<StateDataModel> stateListModalListCards) {
+        this.stateListModalListCards = stateListModalListCards;
+
         notifyDataSetChanged();
 
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StateListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.covid_result_table_items, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.covid_result_table_items_state, parent, false);
+        return new StateListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        String Name = StateListModalList.get(position).getCountryName();
-//        String T_Affected = StateListModalList.get(position).getTotalAffected();
-//        String Recovered = StateListModalList.get(position).getTotalRecovered();
-//        String N_Affected = StateListModalList.get(position).getNewAffected();
-//        String Death = StateListModalList.get(position).getTotalDeath();
-
-//        holder.bind(Name,T_Affected,Recovered,N_Affected,Death);
-        int activeCases = StateListModalListCards.get(position).getConfirmed() - StateListModalListCards.get(position).getRecovered() - StateListModalListCards.get(position).getDeaths();
-        holder.countryName.setText(StateListModalListTable.get(position).getCountry());
-        holder.totalConfirmed.setText(String.valueOf(StateListModalListCards.get(position).getConfirmed()));
-        holder.totalActive.setText(activeCases);
-        holder.totalRecovered.setText(String.valueOf(StateListModalListCards.get(position).getRecovered()));
-        holder.totalDeceased.setText(String.valueOf(StateListModalListCards.get(position).getDeaths()));
+    public void onBindViewHolder(@NonNull StateListAdapter.ViewHolder holder, int position) {
+        String totalConfirmed = String.valueOf(stateListModalListCards.get(position));
+        //holder.totalConfirmed.setText(String.valueOf(stateListModalListCards.get(position)));
+//
+        holder.bind(totalConfirmed);
 
     }
 
     @Override
     public int getItemCount() {
-        return StateListModalListTable.size();
-
+//        if(){
+//            Toast.makeText(context, "No records to show", Toast.LENGTH_SHORT).show();
+//        }
+        return stateListModalListCards.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView countryName;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        //private TextView countryName;
         private TextView totalConfirmed;
         private TextView totalActive;
         private TextView totalRecovered;
@@ -71,12 +67,22 @@ public class StateListAdapter extends RecyclerView.Adapter<StateListAdapter.View
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            countryName = itemView.findViewById(R.id.country_name);
+            //countryName = itemView.findViewById(R.id.country_name);
             totalConfirmed = itemView.findViewById(R.id.total_confirmed);
-            totalActive = itemView.findViewById(R.id.total_active);
-            totalRecovered = itemView.findViewById(R.id.total_recovered);
-            totalDeceased = itemView.findViewById(R.id.total_deceased);
+//            totalActive = itemView.findViewById(R.id.total_active);
+//            totalRecovered = itemView.findViewById(R.id.total_recovered);
+//            totalDeceased = itemView.findViewById(R.id.total_deceased);
         }
+
+        private void bind(final String TotalConfirmed) {
+            //countryName.setText(CountryName);
+            totalConfirmed.setText(TotalConfirmed);
+//            totalActive.setText(TotalActive);
+//            totalRecovered.setText(TotalRecovered);
+//            totalDeceased.setText(TotalDeceased);
+        }
+
+
     }
 }
 

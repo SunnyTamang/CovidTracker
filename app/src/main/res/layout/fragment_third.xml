@@ -1,14 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="l1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThirdFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ThirdFragment"
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hii" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:id="@+id/topbglayout"
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        android:background="@drawable/bottom_round_bg"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <ImageView
+                android:id="@+id/back_pressed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="15dp"
+
+                android:src="@drawable/tips_back_icon"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health Tips"
+            android:textSize="20sp"
+            android:fontFamily="@font/lato"
+            android:padding="10dp"
+            android:textColor="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    app:cardBackgroundColor="#F8CFA8"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="start"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/symptomscardstext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginRight="4dp"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center"
+                            android:text="COVID Symptoms"
+                            android:textColor="#6D767E"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <!--                    <TextView-->
+                        <!--                        android:id="@+id/confirmed_Count"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginLeft="4dp"-->
+                        <!--                        android:layout_marginTop="4dp"-->
+                        <!--                        android:layout_marginRight="4dp"-->
+                        <!--                        android:layout_marginBottom="4dp"-->
+                        <!--                        android:fontFamily="@font/roboto"-->
+                        <!--                        android:gravity="center"-->
+                        <!--                        android:textColor="#ff6666"-->
+                        <!--                        android:textSize="14sp"-->
+                        <!--                        android:textStyle="normal" -->
+                        <!--                        android:text="There are various symptoms that can-->
+                        <!--                                       be relatedwith CO"/>-->
+
+                    </LinearLayout>
+
+
+
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:src="@drawable/corona_logo"
+                />
+
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

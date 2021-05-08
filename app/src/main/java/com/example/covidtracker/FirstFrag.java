@@ -12,12 +12,15 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +47,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FirstFrag extends Fragment {
 
+    private static final String TAG = "FirstFrag";
     NavController navController;
     Button world_btn;
     View view;
@@ -58,6 +62,9 @@ public class FirstFrag extends Fragment {
     RecyclerView world_list_rv;
     Activity context;
     WorldListAdapter worldListAdapter;
+    private List<WorldDataList> mExampleList = new ArrayList<>();
+
+    //private WorldListAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,18 +81,18 @@ public class FirstFrag extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         worldListAdapter = new WorldListAdapter();
         world_list_rv.setLayoutManager(manager);
-//        worldListAdapter.setOnItemClickListener(new WorldListAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                //Toast.makeText(view.getContext(), "wow", Toast.LENGTH_SHORT).show();
-//                Fragment stateWiseFragment = new State_Wise_Filter();
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container1,stateWiseFragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
-//            }
-//        });
+        worldListAdapter.setOnItemClickListener(new WorldListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                //Toast.makeText(view.getContext(), "wow", Toast.LENGTH_SHORT).show();
+                Fragment stateWiseFragment = new State_Wise_Filter();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container1,stateWiseFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
 
        // fetchingRvData();
@@ -110,7 +117,47 @@ public class FirstFrag extends Fragment {
         getWorldCardsData();
         fetchingRecViewData();
 
+
+
+        EditText editText = view.findViewById(R.id.edittext);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
         return view;
+    }
+
+//For search Filter
+    private void filter(String text) {
+        List<WorldDataList> filteredList = new ArrayList<>();
+
+//        for (WorldDataList item : mExampleList) {
+//            if (item.getCountry().toLowerCase().contains(text.toLowerCase())) {
+//                filteredList.add(item);
+//            }
+
+
+        for (int k = 0; k < mExampleList.size(); k++) {
+            if (mExampleList.get(k).getCountry().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(mExampleList.get(k));
+            }
+            worldListAdapter.setData(filteredList);
+            world_list_rv.setAdapter(worldListAdapter);
+
+        }
     }
 
     private void fetchingRecViewData() {
@@ -125,7 +172,12 @@ public class FirstFrag extends Fragment {
                     return;
                 }
 
+
                 List<WorldDataList> dataResponse = response.body();
+
+                for(WorldDataList list : response.body()){
+                    mExampleList.add(list);
+                }
                 worldListAdapter.setData(dataResponse);
                 world_list_rv.setAdapter(worldListAdapter);
             }
@@ -138,31 +190,7 @@ public class FirstFrag extends Fragment {
         });
     }
 
-    private void fetchingRvData() {
-     //   ApiCall apiCall = ApiClients.getRetrofit().create(ApiCall.class);
 
-
-            Call<List<WorldDataList>> dataListCall = ApiClients.getUserService().getWorldTableData();
-            Log.e("URl","url"+ApiClients.getUserService().getWorldTableData());
-            dataListCall.enqueue(new Callback<List<WorldDataList>>() {
-                @Override
-                public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
-                    Log.d("Data","message"+response.body());
-                    if (response.isSuccessful()){
-                        List<WorldDataList> dataResponse = response.body();
-                        worldListAdapter.setData(dataResponse);
-                        world_list_rv.setAdapter(worldListAdapter);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
-                    Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-
-
-    }
 
     private void getWorldCardsData(){
         Call<WorldCardsModel> call = apiCall.getWorldCardsData(false);

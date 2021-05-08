@@ -20,11 +20,11 @@ public interface ApiCall {
     @GET("v3/covid-19/all")
     Call<WorldCardsModel> getWorldCardsData(@Query("yesterday") boolean yesterday);
 
-    @GET("v3/covid-19/jhucsse")
-    Call<List<StateDataModel>> getWorldStateTableData();
+//    @GET("v3/covid-19/jhucsse")
+//    Call<List<StateDataModel>> getWorldStateTableData();
 
     @GET("v3/covid-19/jhucsse")
-    Call<StateDataModel.Stats> getWorldStateCardsData();
+    Call<List<StateDataModel>> getWorldStateCardsData();
 
 
 

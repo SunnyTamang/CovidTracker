@@ -5,9 +5,9 @@ public class StateDataModel {
     private String country;
     private String county;
     private String updatedAt;
-    private String stats;
-    private Double coordinates;
-    private String province;
+    private Stats stats;
+    private Coordinates coordinates;
+    private Object province;
 
     public String getCountry() {
         return country;
@@ -33,19 +33,19 @@ public class StateDataModel {
         this.updatedAt = updatedAt;
     }
 
-    public String getStats() {
+    public Stats getStats() {
         return stats;
     }
 
-    public void setStats(String stats) {
+    public void setStats(Stats stats) {
         this.stats = stats;
     }
 
-    public Double getCoordinates() {
+    public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Double coordinates) {
+    public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -53,7 +53,7 @@ public class StateDataModel {
         return province;
     }
 
-    public void setProvince(String province) {
+    public void setProvince(Object province) {
         this.province = province;
     }
 
