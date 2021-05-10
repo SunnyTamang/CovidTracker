@@ -1,43 +1,21 @@
 package com.example.covidtracker;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.covidtracker.Adapter.StateListAdapter;
 import com.example.covidtracker.Adapter.StateListAdapterStateName;
-import com.example.covidtracker.Adapter.WorldListAdapter;
-import com.example.covidtracker.Madal.StateDataModel;
-import com.example.covidtracker.Madal.WorldDataList;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.google.gson.internal.bind.ArrayTypeAdapter;
 
 public class State_Wise_Filter extends Fragment {
 
@@ -57,6 +35,9 @@ public class State_Wise_Filter extends Fragment {
     //List<StateDataModel.Stats> dataResponse1;
     //List<StateDataModel> dataResponse;
     Activity context;
+
+
+    AutoCompleteTextView autoCompleteTextView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +61,9 @@ public class State_Wise_Filter extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_state__wise__filter, container, false);
+        view = inflater.inflate(R.layout.fragment_state_wise_filter, container, false);
+        //autoCompleteTextView = view.findViewById(R.id.location);
+
 //        state_list_rv = view.findViewById(R.id.state_list_rv);
 //        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
 //        stateListAdapter = new StateListAdapter();
@@ -118,6 +101,14 @@ public class State_Wise_Filter extends Fragment {
 //            }
 //        });
 //
+
+        //autocomplete setup here
+
+        String []option = {"Egpt", "France","India"};
+//        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(),R.layout.option_item,option);
+//        autoCompleteTextView.setText(arrayAdapter.getItem(0).toString(), false);
+//        autoCompleteTextView.setAdapter(arrayAdapter);
+
 
 
         return view;
