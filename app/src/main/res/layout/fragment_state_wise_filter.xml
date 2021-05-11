@@ -57,15 +57,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:startIconDrawable="@drawable/location"
-                    android:hint="Select Location">
+                    android:hint="Select Location"
+                    android:id="@+id/select_location">
 
-<!--                    <AutoCompleteTextView-->
-<!--                        android:id="@+id/location"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:enabled="false"-->
-<!--                        android:inputType="none"-->
-<!--                        android:textColor="#000"/>-->
+                    <AutoCompleteTextView
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="#000"/>
 
 
 

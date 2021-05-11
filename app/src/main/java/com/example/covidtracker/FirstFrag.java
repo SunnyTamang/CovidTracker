@@ -19,13 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.covidtracker.Adapter.AutoCompleteCountryAdapter;
 import com.example.covidtracker.Adapter.WorldListAdapter;
+import com.example.covidtracker.Madal.CountryItem;
 import com.example.covidtracker.Madal.WorldCardsModel;
 import com.example.covidtracker.Madal.WorldDataList;
 import com.example.covidtracker.Madal.WorldListModal;
@@ -52,6 +55,10 @@ public class FirstFrag extends Fragment {
     Button world_btn;
     View view;
     TextView confirm;
+
+    //For countryitem model class
+
+    private List<CountryItem> countryList;
 
     private TextView confirmed_count;
     private TextView active_count;
@@ -137,18 +144,14 @@ public class FirstFrag extends Fragment {
             }
         });
 
+
+
         return view;
     }
 
 //For search Filter
     private void filter(String text) {
         List<WorldDataList> filteredList = new ArrayList<>();
-
-//        for (WorldDataList item : mExampleList) {
-//            if (item.getCountry().toLowerCase().contains(text.toLowerCase())) {
-//                filteredList.add(item);
-//            }
-
 
         for (int k = 0; k < mExampleList.size(); k++) {
             if (mExampleList.get(k).getCountry().toLowerCase().contains(text.toLowerCase())) {
@@ -159,7 +162,7 @@ public class FirstFrag extends Fragment {
 
         }
     }
-
+// Seach Filter ends
     private void fetchingRecViewData() {
         Call<List<WorldDataList>> call = apiCall.getWorldTableData();
 
@@ -180,6 +183,18 @@ public class FirstFrag extends Fragment {
                 }
                 worldListAdapter.setData(dataResponse);
                 world_list_rv.setAdapter(worldListAdapter);
+
+                //passing the data to countryItemModel
+//                countryList = new ArrayList<>();
+//                for (int p = 0 ; p< dataResponse.size();p++){
+//                    if( dataResponse.get(p) != null) {
+//                        countryList.add(new CountryItem(String.valueOf(dataResponse.get(p).getCountry())));
+//                    }
+//                    else
+//                        Log.d(TAG, "This is null");
+//                }
+
+
             }
 
 

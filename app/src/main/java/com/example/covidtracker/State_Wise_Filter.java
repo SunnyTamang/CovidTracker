@@ -1,21 +1,37 @@
 package com.example.covidtracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.covidtracker.Adapter.AutoCompleteCountryAdapter;
 import com.example.covidtracker.Adapter.StateListAdapter;
 import com.example.covidtracker.Adapter.StateListAdapterStateName;
+import com.example.covidtracker.Madal.CountryItem;
+import com.example.covidtracker.Madal.WorldDataList;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.internal.bind.ArrayTypeAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class State_Wise_Filter extends Fragment {
 
@@ -27,6 +43,8 @@ public class State_Wise_Filter extends Fragment {
     View view;
    // private ArrayList<ExampleItem> mExampleItem;
     private RecyclerView mRecyclerView;
+    private List<CountryItem> countryList = new ArrayList<>();
+    //private List<WorldDataList> countryList;
 
     RecyclerView state_list_rv;
     StateListAdapter stateListAdapter;
@@ -34,10 +52,15 @@ public class State_Wise_Filter extends Fragment {
     private ApiCall apiCall;
     //List<StateDataModel.Stats> dataResponse1;
     //List<StateDataModel> dataResponse;
-    Activity context;
+    //Activity context;
+    Context context;
+    TextInputLayout select_location;
 
-
-    AutoCompleteTextView autoCompleteTextView;
+    AutoCompleteTextView location;
+    ArrayList<CountryItem> arraList_Location;
+    ArrayAdapter<String> arrayAdapter_location;
+    AutoCompleteCountryAdapter adapter;
+    //AutoCompleteTextView autoCompleteTextView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,44 +93,42 @@ public class State_Wise_Filter extends Fragment {
 //        stateListAdapterStateName = new StateListAdapterStateName();
 //        state_list_rv.setLayoutManager(manager);
 //
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://disease.sh/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        apiCall = retrofit.create(ApiCall.class);
-        //fetchingRecViewData();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://disease.sh/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiCall = retrofit.create(ApiCall.class);
+        fetchingRecViewData();
 
-        //Edit Text ka kaam
 
-        createExampleList();
-        buildRecyclerView();
 
-        EditText editText = view.findViewById(R.id.edittext);
-
-//        editText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                filter(s.toString());
-//            }
-//        });
-//
 
         //autocomplete setup here
 
-        String []option = {"Egpt", "France","India"};
+        //String []option = {"Egpt", "France","India"};
 //        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(),R.layout.option_item,option);
 //        autoCompleteTextView.setText(arrayAdapter.getItem(0).toString(), false);
 //        autoCompleteTextView.setAdapter(arrayAdapter);
+
+        //This is woth customised spinner autocomplete textview
+//        AutoCompleteTextView editCountryText = view.findViewById(R.id.location);
+//        AutoCompleteCountryAdapter adapter = new AutoCompleteCountryAdapter(getContext(), countryList);
+//        editCountryText.setAdapter(adapter);
+
+        select_location=view.findViewById(R.id.select_location);
+        location = view.findViewById(R.id.location);
+
+        arraList_Location = new ArrayList<>();
+
+//        arraList_Location.add("Egypt");
+//        arraList_Location.add("France");
+//        arraList_Location.add("India");
+//        arraList_Location.add("Germany");
+
+        adapter = new AutoCompleteCountryAdapter(getContext(),countryList);
+        location.setAdapter(adapter);
+
+        location.setThreshold(1);
 
 
 
@@ -115,32 +136,38 @@ public class State_Wise_Filter extends Fragment {
     }
 
     private void fetchingRecViewData() {
-       // Call<List<StateDataModel>> call = apiCall.getWorldStateTableData();
-        //Call<StateDataModel.Stats> call2 = apiCall.getWorldStateCardsData();
+        Call<List<WorldDataList>> call = apiCall.getWorldTableData();
 
 
-//        call.enqueue(new Callback<List<StateDataModel>>() {
-//            @Override
-//            public void onResponse(Call<List<StateDataModel>> call, Response<List<StateDataModel>> response) {
-//                if (!response.isSuccessful()) {
-//                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
-//                    return;
-//                }
-//
-//                List<StateDataModel> dataResponse = response.body();
-//                stateListAdapterStateName.setData(dataResponse);
-//                state_list_rv.setAdapter(stateListAdapter);
-//
-//
-//
-//            }
-//
-//
-//            @Override
-//            public void onFailure(Call<List<StateDataModel>> call, Throwable t) {
-//                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-//            }
-//        });
+
+        call.enqueue(new Callback<List<WorldDataList>>() {
+            @Override
+            public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
+                    return;
+                }
+
+                List<WorldDataList> dataResponse = response.body();
+                //countryList = new ArrayList<>();
+                for (int p = 0 ; p< dataResponse.size();p++){
+                    if( dataResponse.get(p) != null) {
+                        countryList.add(new CountryItem(String.valueOf(dataResponse.get(p).getCountry())));
+                    }
+                    else
+                        Log.d("State_Wise_Filter", "This is null");
+                }
+
+
+
+            }
+
+
+            @Override
+            public void onFailure(Call<List<WorldDataList>> call, Throwable t) {
+                Toast.makeText(view.getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
 //        call2.enqueue(new Callback<StateDataModel.Stats>() {
 //            @Override
