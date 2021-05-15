@@ -26,6 +26,9 @@ public interface ApiCall {
     @GET("v3/covid-19/jhucsse")
     Call<List<StateDataModel>> getWorldStateCardsData();
 
+    @GET("v3/covid-19/countries")
+    Call<List<WorldDataList>> getWorldCountryNameCards();
+
 
 
 
