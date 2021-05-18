@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
                         fragment = new State_Wise_Filter();
                         break;
                     case R.id.favourite:
-                        fragment = new ThirdFragment();
+                        fragment = new SupportFragment();
                         break;
 
                 }

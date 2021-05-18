@@ -45,12 +45,16 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
     Map<Date, Integer> deceasedSortedMap= new LinkedHashMap<>();
     Map confirmedMap = new HashMap();
     Map deceasedMap = new HashMap();
+    public static String locationSelected;
 
     //@RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            URL url = new URL("https://disease.sh/v3/covid-19/historical/India?lastdays=7");
+            //locationSelected = State_Wise_Filter.cName;
+
+            Log.d("locationse",locationSelected);
+            URL url = new URL("https://disease.sh/v3/covid-19/historical/" + locationSelected +"?lastdays=7");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -303,7 +307,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
+        locationSelected=null;
         //for(int i=0; i < finalData.size();i++){
         //State_Wise_Filter..append(this.finalData.keySet().toString() + " " + this.finalData.values().toString());
         //}
@@ -325,7 +329,17 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
             State_Wise_Filter.deceasedCount.add(deceasedCountData.get(i));
         }
+
+        finalData.clear();
+        confirmedFinalData.clear();
+        deceasedfinalData.clear();
+        sortedMap.clear();
+        confirmedSortedMap.clear();
+        deceasedSortedMap.clear();
+        confirmedMap.clear();
+        deceasedMap.clear();
         Log.d("historic", histDates.toString());
+
     }
 
     private static Map getMap(JSONObject object) {

@@ -10,7 +10,7 @@
         android:id="@+id/topbglayout"
         android:layout_width="match_parent"
         android:layout_height="218dp"
-        android:background="#475B5A"
+        android:background="#212B46"
         >
 
         <ImageView

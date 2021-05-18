@@ -1,12 +1,19 @@
 package com.example.covidtracker;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +52,19 @@ public class SupportFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    View view;
+    ConstraintLayout expandableView;
+    ConstraintLayout expandableView1;
+    Button covidSymptomsBtn;
+    Button precautionBtn;
+    CardView cardView;
+    CardView cardView1;
+    CardView mythbuster;
+    CardView transmission;
+    CardView mask;
+    CardView vaccination;
+    CardView smallGatherings;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +79,95 @@ public class SupportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_support, container, false);
+        view= inflater.inflate(R.layout.fragment_support, container, false);
+        expandableView = view.findViewById(R.id.expandableView);
+        expandableView1 = view.findViewById(R.id.expandableView1);
+
+        covidSymptomsBtn = view.findViewById(R.id.covidSymptomsBtn);
+        precautionBtn = view.findViewById(R.id.precautionsBtn);
+
+        cardView = view.findViewById(R.id.cardView);
+        cardView1 = view.findViewById(R.id.cardView1);
+
+        mythbuster = view.findViewById(R.id.mythCardView);;
+        transmission = view.findViewById(R.id.transmissionCardView);;
+        mask = view.findViewById(R.id.maskCardView);;
+        vaccination = view.findViewById(R.id.vaccinationCardView);;
+        smallGatherings = view.findViewById(R.id.smallGatheringsCardView);;
+
+        covidSymptomsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandableView.getVisibility()==View.GONE){
+                    covidSymptomsBtn.setText("Collapse");
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.VISIBLE);
+
+                } else {
+                    covidSymptomsBtn.setText("View all");
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.GONE);
+
+                }
+            }
+        });
+
+        precautionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandableView1.getVisibility()==View.GONE){
+                    precautionBtn.setText("Collapse");
+                    TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
+                    expandableView1.setVisibility(View.VISIBLE);
+
+                } else {
+                    precautionBtn.setText("View all");
+                    TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
+                    expandableView1.setVisibility(View.GONE);
+
+                }
+            }
+        });
+
+        mythbuster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUrl("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/myth-busters");
+            }
+        });
+        transmission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUrl("https://www.who.int/teams/risk-communication/covid-19-transmission-package");
+            }
+        });
+        mask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUrl("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public/when-and-how-to-use-masks");
+            }
+        });
+        vaccination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUrl("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/covid-19-vaccines/advice");
+            }
+        });
+        smallGatherings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoUrl("https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/coronavirus-disease-covid-19-small-public-gatherings");
+            }
+        });
+
+
+
+        return view;
+
+    }
+
+    private void gotoUrl(String s) {
+        Uri uri= Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW,uri));
     }
 }

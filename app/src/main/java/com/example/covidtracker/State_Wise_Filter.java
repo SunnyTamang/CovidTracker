@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.security.ConfirmationNotAvailableException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +29,14 @@ import com.example.covidtracker.Madal.CountryItem;
 import com.example.covidtracker.Madal.WorldCardsModel;
 import com.example.covidtracker.Madal.WorldDataList;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -58,7 +64,7 @@ public class State_Wise_Filter extends Fragment {
 //    }
 
     View view;
-   // private ArrayList<ExampleItem> mExampleItem;
+    // private ArrayList<ExampleItem> mExampleItem;
     private RecyclerView mRecyclerView;
     private List<CountryItem> countryList = new ArrayList<>();
     //private List<WorldDataList> countryList;
@@ -83,27 +89,28 @@ public class State_Wise_Filter extends Fragment {
     private TextView active_count;
     private TextView deceased_count;
     private TextView recovered_count;
-    String cName;
+    public static String cName;
     int worldConfirmedCard;
     int active;
     int deceased;
     int recovered;
     int counter;
-    private BarChart mChart;
-    private BarChart mChart1;
-    private BarChart mChart2;
+    private LineChart mChart;
+    private LineChart mChart1;
+    private LineChart mChart2;
     private static EditText search_s;
 
-    public static ArrayList<Integer> recoveredCount=new ArrayList<>();
-    public static ArrayList<Date> historicDate=new ArrayList<>();
+    private Button visualise;
+
+    public static ArrayList<Integer> recoveredCount = new ArrayList<>();
+    public static ArrayList<Date> historicDate = new ArrayList<>();
     private final ArrayList<String> histo = new ArrayList<>();
 
-    public static ArrayList<Integer> confirmedCount=new ArrayList();
+    public static ArrayList<Integer> confirmedCount = new ArrayList();
 
 
-    public static ArrayList<Integer> deceasedCount=new ArrayList();
+    public static ArrayList<Integer> deceasedCount = new ArrayList();
     DateFormat formatter = new SimpleDateFormat("M/d/yy");
-
 
 
     @Override
@@ -111,12 +118,10 @@ public class State_Wise_Filter extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
-
-
     }
-    private void filter(String text){
-       // ArrayList<ExampleItem>
+
+    private void filter(String text) {
+        // ArrayList<ExampleItem>
     }
 
     private void createExampleList() {
@@ -128,30 +133,41 @@ public class State_Wise_Filter extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_state_wise_filter, container, false);
+        cName = null;
+
         //autoCompleteTextView = view.findViewById(R.id.location);
-        mChart= (BarChart)view.findViewById(R.id.chart1);
+
+        visualise = view.findViewById(R.id.visualise);
+
+        mChart = (LineChart) view.findViewById(R.id.chart1);
         mChart.getDescription().setEnabled(false);
 
-        mChart1=(BarChart) view.findViewById(R.id.chart2);
-        mChart1.getDescription().setEnabled(false);
 
-        mChart2=(BarChart) view.findViewById(R.id.chart3);
+        mChart.setNoDataText("Please click on Visualize to visualize");
+
+        mChart1 = (LineChart) view.findViewById(R.id.chart2);
+        mChart1.getDescription().setEnabled(false);
+        mChart1.setNoDataText("Please click on Visualize to visualize");
+
+        mChart2 = (LineChart) view.findViewById(R.id.chart3);
         mChart2.getDescription().setEnabled(false);
+        mChart2.setNoDataText("Please click on Visualize to visualize");
+
+
 //        state_list_rv = view.findViewById(R.id.state_list_rv);
 //        LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
 //        stateListAdapter = new StateListAdapter();
 //        stateListAdapterStateName = new StateListAdapterStateName();
 //        state_list_rv.setLayoutManager(manager);
 //
-        FetchData process = new FetchData();
-        process.execute();
+//        FetchData process = new FetchData();
+//        process.execute();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://disease.sh/")
@@ -159,8 +175,6 @@ public class State_Wise_Filter extends Fragment {
                 .build();
         apiCall = retrofit.create(ApiCall.class);
         fetchingRecViewData();
-
-
 
 
         confirmed_count = view.findViewById(R.id.confirmed_count);
@@ -181,7 +195,7 @@ public class State_Wise_Filter extends Fragment {
 //        AutoCompleteCountryAdapter adapter = new AutoCompleteCountryAdapter(getContext(), countryList);
 //        editCountryText.setAdapter(adapter);
 
-        select_location=view.findViewById(R.id.select_location);
+        select_location = view.findViewById(R.id.select_location);
         location = view.findViewById(R.id.location);
 
         arraList_Location = new ArrayList<>();
@@ -191,110 +205,136 @@ public class State_Wise_Filter extends Fragment {
 //        arraList_Location.add("India");
 //        arraList_Location.add("Germany");
 
-        adapter = new AutoCompleteCountryAdapter(getContext(),countryList);
+        adapter = new AutoCompleteCountryAdapter(getContext(), countryList);
         location.setAdapter(adapter);
 
         location.setThreshold(1);
 
 
+//        FetchData process = new FetchData();
+//        process.execute();
 
 
         location.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cName = location.getText().toString();
+                Log.d("cName", cName);
+
+
+                FetchData.locationSelected = cName;
+                FetchData process = new FetchData();
+                process.execute();
+
 
                 counter = 0;
                 getWorldCardsData();
 
 
-
-                for (int i=0 ;i < historicDate.size();i++){
-                    histo.add(formatter.format(historicDate.get(i)));
-                }
                 Log.d("Histo", histo.toString());
-
-
-
-
-                if(counter == 0){
-                    setData();
-                    setConfirmed();
-                    setDeceased();
-
-                    counter += 1;
-                }
-                //getGraph();
 
 
                 //mChart.setFitBars(true);
             }
         });
 
+        visualise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (cName != null) {
+                    for (int i = 0; i < historicDate.size(); i++) {
+                        histo.add(formatter.format(historicDate.get(i)));
+                    }
+                    setData();
+                    setConfirmed();
+                    setDeceased();
+
+
+
+
+                } else {
+                    Toast.makeText(view.getContext(), "Please select the location", Toast.LENGTH_SHORT).show();
+                }
+                recoveredCount.clear();
+                confirmedCount.clear();
+                deceasedCount.clear();
+
+            }
+
+
+        });
 
 
         return view;
     }
 
+
     private void setData() {
-        ArrayList<BarEntry> yVals = new ArrayList<>();
-        ArrayList<String> xVals = new ArrayList<>() ;
+        ArrayList<Entry> yVals = new ArrayList<>();
+        ArrayList<String> xVals = new ArrayList<>();
 
 
-
-        for(int i= 0; i<recoveredCount.size();i++){
+        for (int i = 0; i < recoveredCount.size(); i++) {
             int value = recoveredCount.get(i);
             yVals.add(new BarEntry(i, value));
             //xVals.add(historicDate.get(i));
         }
 
-        BarDataSet set = new BarDataSet(yVals,"Last 7 Days");
+        LineDataSet set = new LineDataSet(yVals, "Last 7 Days");
         set.setColors(ColorTemplate.JOYFUL_COLORS);
-        set.setDrawValues(false);
+        set.setDrawValues(true);
         set.setColor(Color.parseColor("#2DAA4A"));
 
 
-        //set.setValueTextSize(15f);
+        set.setValueTextSize(10f);
 
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return histo.get((int)value);
+                return histo.get((int) value);
             }
         });
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f);
+        set.setDrawFilled(true);
+        set.setFillAlpha(110);
+        set.setLineWidth(1f);
+        //set.setDrawCircles(true);
+        set.setDrawCircleHole(false);
+        set.setCircleColor(Color.parseColor("#2DAA4A"));
+        set.setCircleRadius(4f);
 
 
-
-        BarData data = new BarData(set);
+        mChart.getAxisLeft().setEnabled(false);
+        LineData data = new LineData(set);
         mChart.setData(data);
+
         mChart.invalidate();
         // mChart.tex
         mChart.animateY(500);
 
     }
 
-    private void setConfirmed(){
-        ArrayList<BarEntry> yVals = new ArrayList<>();
-        ArrayList<String> xVals = new ArrayList<>() ;
+    private void setConfirmed() {
+        ArrayList<Entry> yVals = new ArrayList<>();
+        ArrayList<String> xVals = new ArrayList<>();
 
 
-
-
-        for(int i= 0; i<confirmedCount.size();i++){
+        for (int i = 0; i < confirmedCount.size(); i++) {
             Long value = Long.valueOf(confirmedCount.get(i));
             yVals.add(new BarEntry(Float.valueOf(i), value));
             //xVals.add(historicDate.get(i));
         }
 
-        BarDataSet set = new BarDataSet(yVals,"Last 7 Days");
+        LineDataSet set = new LineDataSet(yVals, "Last 7 Days");
         set.setColors(ColorTemplate.JOYFUL_COLORS);
-        set.setDrawValues(false);
-        //set.setValueTextSize(12f);
+        set.setDrawValues(true);
+        set.setValueTextSize(10f);
         set.setColor(Color.parseColor("#ff6666"));
 
 
@@ -302,16 +342,23 @@ public class State_Wise_Filter extends Fragment {
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return histo.get((int)value);
+                return histo.get((int) value);
             }
         });
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
         xAxis.setGranularity(1f);
+        set.setDrawFilled(true);
+        set.setFillAlpha(110);
+        set.setLineWidth(1f);
+        //set.setDrawCircles(true);
+        set.setDrawCircleHole(false);
+        set.setCircleColor(Color.parseColor("#ff6666"));
+        set.setCircleRadius(4f);
 
 
-
-        BarData data = new BarData(set);
+        mChart1.getAxisLeft().setEnabled(false);
+        LineData data = new LineData(set);
         mChart1.setData(data);
         mChart1.invalidate();
         // mChart.tex
@@ -319,41 +366,51 @@ public class State_Wise_Filter extends Fragment {
 
     }
 
-    private void setDeceased(){
-        ArrayList<BarEntry> yVals = new ArrayList<>();
-        ArrayList<String> xVals = new ArrayList<>() ;
+    private void setDeceased() {
 
+        ArrayList<Entry> yVals = new ArrayList<>();
+        //ArrayList<String> xVals = new ArrayList<>() ;
 
-
-
-        for(int i= 0; i<deceasedCount.size();i++){
+        for (int i = 0; i < deceasedCount.size(); i++) {
             Long value = Long.valueOf(deceasedCount.get(i));
-            yVals.add(new BarEntry(Float.valueOf(i), value));
+            yVals.add(new Entry(Float.valueOf(i), value));
             //xVals.add(historicDate.get(i));
         }
 
-        BarDataSet set = new BarDataSet(yVals,"Last 7 Days");
+        LineDataSet set = new LineDataSet(yVals, "DataSet");
         set.setColors(ColorTemplate.JOYFUL_COLORS);
-        set.setDrawValues(false);
-        //set.setValueTextSize(12f);
+        set.setDrawValues(true);
+        set.setValueTextSize(10f);
         set.setColor(Color.parseColor("#6D767E"));
+        set.setDrawFilled(true);
+        set.setFillAlpha(110);
+        set.setLineWidth(1f);
+        //set.setDrawCircles(true);
+        set.setDrawCircleHole(false);
+        set.setCircleRadius(4f);
 
 
         XAxis xAxis = mChart2.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return histo.get((int)value);
+                return histo.get((int) value);
             }
         });
+
+
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
         xAxis.setGranularity(1f);
 
 
+        LineData data = new LineData(set);
 
-        BarData data = new BarData(set);
+
+        mChart2.getAxisLeft().setEnabled(false);
+
         mChart2.setData(data);
+
         mChart2.invalidate();
         // mChart.tex
         mChart2.animateY(500);
@@ -361,30 +418,27 @@ public class State_Wise_Filter extends Fragment {
     }
 
 
-
     private void fetchingRecViewData() {
         Call<List<WorldDataList>> call = apiCall.getWorldTableData();
-
 
 
         call.enqueue(new Callback<List<WorldDataList>>() {
             @Override
             public void onResponse(Call<List<WorldDataList>> call, Response<List<WorldDataList>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(view.getContext(), response.code(), Toast.LENGTH_SHORT).show();
+                    ;
                     return;
                 }
 
                 List<WorldDataList> dataResponse = response.body();
                 //countryList = new ArrayList<>();
-                for (int p = 0 ; p< dataResponse.size();p++){
-                    if( dataResponse.get(p) != null) {
+                for (int p = 0; p < dataResponse.size(); p++) {
+                    if (dataResponse.get(p) != null) {
                         countryList.add(new CountryItem(String.valueOf(dataResponse.get(p).getCountry())));
-                    }
-                    else
+                    } else
                         Log.d("State_Wise_Filter", "This is null");
                 }
-
 
 
             }
@@ -397,10 +451,9 @@ public class State_Wise_Filter extends Fragment {
         });
 
 
-
     }
 
-    private void getWorldCardsData(){
+    private void getWorldCardsData() {
 
 
         Call<List<WorldDataList>> call = apiCall.getWorldCountryNameCards();
@@ -429,18 +482,16 @@ public class State_Wise_Filter extends Fragment {
                 List<WorldDataList> countryDataResponse = response.body();
                 //countryList = new ArrayList<>();
 
-                for (WorldDataList list : countryDataResponse){
-                    if(list.getCountry().equals(cName) ){
+                for (WorldDataList list : countryDataResponse) {
+                    if (list.getCountry().equals(cName)) {
                         worldConfirmedCard = list.getCases();
                         active = list.getActive();
                         deceased = list.getDeaths();
                         recovered = list.getRecovered();
-                    }
-                    else
-                        Log.d("matching",list.getCountry());
+                    } else
+                        Log.d("matching", list.getCountry());
                 }
 //
-
 
 
                 confirmed_count.setText(String.valueOf(worldConfirmedCard));

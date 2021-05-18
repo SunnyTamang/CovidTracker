@@ -23,7 +23,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/stateCardView"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
 
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
@@ -74,8 +74,15 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
 
+                </LinearLayout>
+                <Button
+                    android:id="@+id/visualise"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Visualize"
+                    android:backgroundTint="#335F81"/>
 
             </LinearLayout>
 
@@ -444,12 +451,12 @@
                 android:layout_margin="10dp"
                 app:cardElevation="10dp"
                 app:cardCornerRadius="12dp">
-            <com.github.mikephil.charting.charts.BarChart
+            <com.github.mikephil.charting.charts.LineChart
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_height="250dp"
                 android:id="@+id/chart1">
-            </com.github.mikephil.charting.charts.BarChart>
+            </com.github.mikephil.charting.charts.LineChart>
             </androidx.cardview.widget.CardView>
 
 
@@ -467,12 +474,13 @@
                 android:layout_margin="10dp"
                 app:cardElevation="10dp"
                 app:cardCornerRadius="12dp">
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:layout_width="match_parent"
+
                     android:layout_marginTop="10dp"
                     android:layout_height="250dp"
                     android:id="@+id/chart2">
-                </com.github.mikephil.charting.charts.BarChart>
+                </com.github.mikephil.charting.charts.LineChart>
             </androidx.cardview.widget.CardView>
 
 
@@ -491,12 +499,13 @@
                 android:layout_margin="10dp"
                 app:cardElevation="10dp"
                 app:cardCornerRadius="12dp">
-                <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.LineChart
                     android:layout_width="match_parent"
                     android:layout_marginTop="10dp"
+                    android:paddingStart="30dp"
                     android:layout_height="250dp"
                     android:id="@+id/chart3">
-                </com.github.mikephil.charting.charts.BarChart>
+                </com.github.mikephil.charting.charts.LineChart>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

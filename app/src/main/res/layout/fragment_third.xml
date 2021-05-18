@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ThirdFragment"
-    >
+    android:background="#212B46">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        android:id="@+id/topbglayout"
-        android:layout_width="match_parent"
-        android:layout_height="218dp"
-        android:background="@drawable/bottom_round_bg"
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/topbglayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="218dp"-->
+<!--        android:background="@drawable/bottom_round_bg"-->
 
-        />
+<!--        />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,37 +34,37 @@
                 android:layout_centerVertical="true"
                 android:padding="15dp"
 
-                android:src="@drawable/tips_back_icon"
-                />
+                android:src="@drawable/tips_back_icon" />
 
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Health Tips"
-            android:textSize="20sp"
             android:fontFamily="@font/lato"
             android:padding="10dp"
-            android:textColor="@color/white"/>
+            android:text="Health Tips"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <RelativeLayout
+            android:id="@+id/covidSymptoms"
             android:layout_width="match_parent"
-            android:layout_height="190dp">
+            android:layout_height="150dp">
 
             <RelativeLayout
+                android:id="@+id/deltaRelative"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
-                >
+                android:layout_marginRight="35dp">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="10dp"
-                    app:cardBackgroundColor="#F8CFA8"
-                    >
+                    app:cardBackgroundColor="#335F81"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                             android:fontFamily="@font/lato"
                             android:gravity="center"
                             android:text="COVID Symptoms"
-                            android:textColor="#6D767E"
+                            android:textColor="#FFFF"
                             android:textSize="16sp"
                             android:textStyle="normal" />
 
@@ -103,30 +103,183 @@
                         <!--                        android:text="There are various symptoms that can-->
                         <!--                                       be relatedwith CO"/>-->
 
+
                     </LinearLayout>
 
 
+                    <Button
+                        android:id="@+id/arrowBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:text="ViewAll">
+
+
+                    </Button>
 
 
                 </androidx.cardview.widget.CardView>
+
+
+
 
             </RelativeLayout>
 
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="140dp"
-                android:src="@drawable/corona_logo"
-                />
+                android:src="@drawable/corona_logo" />
 
         </RelativeLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandableView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+
+            app:layout_constraintTop_toBottomOf="@id/covidSymptoms"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#335F81"
+                app:cardCornerRadius="10dp"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="sdfsdkjfakjkajdfkdkajdfksdfakdfadf
+dsfsdffffffffffffffffffffffffff
+sdffffffffffffffffffffffff
+sdffffffffffffffffffffffffffffffffffff" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+        <RelativeLayout
+            android:id="@+id/covidSymptoms2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            >
+
+            <RelativeLayout
+                android:id="@+id/deltaRelative2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp">
+
+                <androidx.cardview.widget.CardView
+
+                    android:id="@+id/cardView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#335F81"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_gravity="start"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/symptomscardstext2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginRight="4dp"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center"
+                            android:text="COVID Symptoms"
+                            android:textColor="#FFFF"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
+
+                        <!--                    <TextView-->
+                        <!--                        android:id="@+id/confirmed_Count"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginLeft="4dp"-->
+                        <!--                        android:layout_marginTop="4dp"-->
+                        <!--                        android:layout_marginRight="4dp"-->
+                        <!--                        android:layout_marginBottom="4dp"-->
+                        <!--                        android:fontFamily="@font/roboto"-->
+                        <!--                        android:gravity="center"-->
+                        <!--                        android:textColor="#ff6666"-->
+                        <!--                        android:textSize="14sp"-->
+                        <!--                        android:textStyle="normal" -->
+                        <!--                        android:text="There are various symptoms that can-->
+                        <!--                                       be relatedwith CO"/>-->
+
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/arrowBtn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:text="ViewAll">
+
+
+                    </Button>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:src="@drawable/corona_logo" />
+
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandableView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#335F81"
+                app:cardCornerRadius="10dp"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="sdfsdkjfakjkajdfkdkajdfksdfakdfadf
+dsfsdffffffffffffffffffffffffff
+sdffffffffffffffffffffffff
+sdffffffffffffffffffffffffffffffffffff" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>
 
 
-
-
-</RelativeLayout>
+</ScrollView>

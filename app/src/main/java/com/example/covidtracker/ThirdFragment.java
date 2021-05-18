@@ -2,11 +2,17 @@ package com.example.covidtracker;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +61,34 @@ public class ThirdFragment extends Fragment {
         }
     }
 
+    ConstraintLayout expandableView;
+    Button arrowBt;
+    CardView cardView;
+    View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false);
+        view =  inflater.inflate(R.layout.fragment_third, container, false);
+        expandableView = view.findViewById(R.id.expandableView);
+        arrowBt = view.findViewById(R.id.arrowBtn);
+        cardView = view.findViewById(R.id.cardView);
+
+        arrowBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(expandableView.getVisibility() == view.GONE){
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(view.VISIBLE);
+
+                }else{
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(view.GONE);
+                }
+            }
+        });
+
+        return view;
     }
 }
