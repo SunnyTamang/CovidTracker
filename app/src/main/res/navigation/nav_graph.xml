@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/webinar_home_page"
-        android:name="com.example.covidtracker.FirstFrag"
+        android:name="com.trackc.trackc.FirstFrag"
         android:label="Covid Tracker Page"
         tools:layout="@layout/fragment_splash_test">
 
         <action android:id="@+id/first_fragment_to_second_fragment"
             app:destination="@+id/second_fragment"/>
     </fragment>
-    <fragment
-        android:id="@+id/second_fragment"
-        android:name="com.example.covidtracker.SecondFrag"
-        android:label="Covid Tracker Page"
-        tools:layout="@layout/fragment_second">
+<!--    <fragment-->
+<!--        android:id="@+id/second_fragment"-->
+<!--        android:name="com.trackc.trackc.SecondFrag"-->
+<!--        android:label="Covid Tracker Page"-->
+<!--        tools:layout="@layout/fragment_second">-->
 
-    </fragment>
+<!--    </fragment>-->
 
 </navigation>
